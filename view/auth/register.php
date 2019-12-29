@@ -17,20 +17,24 @@
     <link rel="stylesheet" href="/plugins/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Vue.js -->
+    <script src="/plugins/vue/vue.js"></script>
+    <!-- Axios -->
+    <script src="/plugins/vue/axios.min.js"></script>
 </head>
 <body class="hold-transition register-page">
-<div class="register-box">
+<div class="register-box" id="app">
     <div class="register-logo">
-        <a href="../../index2.html"><b>Lineysoft</b>.com</a>
+        <a href="../../index2.html"><b>Lineysoft</b>.com {{nombre}}</a>
     </div>
 
     <div class="card">
         <div class="card-body register-card-body">
             <p class="login-box-msg">Registro de Empresa</p>
 
-            <form action="../../index.html" method="post">
+            <form v-on:submit.prevent="Registrar">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Empresa RUC">
+                    <input type="text" class="form-control" placeholder="Empresa RUC" v-model="register.ruc">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -38,7 +42,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Empresa Razon Social">
+                    <input type="text" class="form-control" placeholder="Empresa Razon Social" v-model="register.razon_social">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -46,7 +50,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Usuario Email">
+                    <input type="email" class="form-control" placeholder="Usuario Email" v-model="register.email">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -54,7 +58,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Usuario Contraseña">
+                    <input type="password" class="form-control" placeholder="Usuario Contraseña" v-model="register.password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -72,7 +76,9 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-5">
-                        <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                        <button type="submit" class="btn btn-primary btn-block" :disabled="isDisabled">
+                          <i class="fa fa-lock-open"></i> Registrarse
+                        </button>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -91,5 +97,33 @@
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/plugins/dist/js/adminlte.min.js"></script>
+<!-- Code Vue -->
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      nombre: "moises",
+      register: {
+        ruc: '',
+        razon_social: '',
+        email: '',
+        password: ''
+      }
+    },
+    methods: {
+      Registrar: function () {
+        console.log(this.register)
+      }
+    },
+    computed: {
+      isDisabled: function () {
+        return this.register.ruc.length &&
+          this.register.razon_social.length &&
+          this.register.email.length &&
+          this.register.password.length == 0;
+      }
+    }
+  })
+</script>
 </body>
 </html>

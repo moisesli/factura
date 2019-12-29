@@ -17,5 +17,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/plugins/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Vue.js -->
+  <script src="/plugins/vue/vue.js"></script>
+  <!-- Axios -->
+  <script src="/plugins/vue/axios.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini">
