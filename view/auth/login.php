@@ -29,7 +29,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Iniciar Session</p>
 
-      <form action="../../index3.html" method="post">
+      <form action="../.." method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -84,4 +84,3 @@
 
 </body>
 </html>
-
