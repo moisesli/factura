@@ -20,9 +20,9 @@
 </head>
 <body class="hold-transition login-page">
 
-<div class="login-box">
+<div class="login-box pt-lg-5">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Lineysoft</b>.com</a>
+    <a href="../../index2.html"><b>Iniciar </b>Session</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

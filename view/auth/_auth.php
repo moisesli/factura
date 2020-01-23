@@ -1,7 +1,33 @@
 <?php
 
 include_once ("../../plugins/bd/conn.php");
-echo json_encode('todo ok');
+//header('Content-Type: application/json');
+$post = json_decode(file_get_contents("php://input"),true);
+
+$f = $_GET['f'];
+
+if ($f == 'register') {
+
+    /* Comprueba */
+    $cantidad = "select count(*) cantidad from empresas 
+            where ruc='{$post['register']['ruc']}'";
+    $cantidad = $conn->query($cantidad)->fetch_array(MYSQLI_ASSOC);
+    $cantidad = $cantidad['cantidad'];
+
+    // Si no hay ningun registro
+    if ($cantidad == 0){
+        /* Inser Registro */
+        $sql = "insert into empresas set
+        ruc='{$post['register']['ruc']}',
+        razon='{$post['register']['razon_social']}'";
+        $conn->query($sql);
+        echo json_encode('ok');
+    }else{
+        echo json_encode('no');
+    }
+
+}
+
 
 
 // class User {
