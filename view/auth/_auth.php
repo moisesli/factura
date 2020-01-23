@@ -1,25 +1,29 @@
 <?php
 
-class User {
-    protected $loggedIn = false;
-    protected $data = [];
+include_once ("../../plugins/bd/conn.php");
+echo json_encode('todo ok');
 
-    public function getData(){
-        return $this->data;
-    }
 
-    public function setData($data){
-        $this->data = $data;
-    }
+// class User {
+//     protected $loggedIn = false;
+//     protected $data = [];
 
-    public function isLoggedIn(){
-        return $this->loggedIn;
-    }
-}
+//     public function getData(){
+//         return $this->data;
+//     }
 
-$rc = new ReflectionClass('User');
+//     public function setData($data){
+//         $this->data = $data;
+//     }
 
-echo '<pre>' . print_r(get_class_methods($rc),true);
+//     public function isLoggedIn(){
+//         return $this->loggedIn;
+//     }
+// }
+
+// $rc = new ReflectionClass('User');
+
+// echo '<pre>' . print_r(get_class_methods($rc),true);
 
 //$user = new User;
 //

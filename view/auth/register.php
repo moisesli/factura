@@ -111,6 +111,7 @@
    <script src="/plugins/dist/js/adminlte.min.js"></script>
    <!-- Code Vue -->
    <script>
+      Vue.config.productionTip = false;
       var app = new Vue({
          el: '#app',
          data: {
@@ -124,9 +125,9 @@
          },
          methods: {
             Registrar: function() {
-               axios.post('register_.php', {})
+               axios.post('_auth.php', {register: this.register})
                   .then(res => {
-
+                     console.log(res.data);
                   });
                console.log(this.register)
             }
