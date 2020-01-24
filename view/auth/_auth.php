@@ -5,6 +5,7 @@ include_once ("../../plugins/bd/conn.php");
 $post = json_decode(file_get_contents("php://input"),true);
 
 $f = $_GET['f'];
+$Api = new Api;
 
 if ($f == 'register') {
 
@@ -14,13 +15,22 @@ if ($f == 'register') {
     $cantidad = $conn->query($cantidad)->fetch_array(MYSQLI_ASSOC);
     $cantidad = $cantidad['cantidad'];
 
+    $cantidadUsers = "select count(*) cantidad from usuarios 
+            where email='{$post['register']['email']}' and password='{$post['register']['password']}'";
+    $cantidadUsers = $conn->query($cantidadUsers)->fetch_array(MYSQLI_ASSOC);
+    $cantidadUsers = $cantidadUsers['cantidad'];
+
     // Si no hay ningun registro
-    if ($cantidad == 0){
+    if ($cantidad == 0 && $cantidadUsers == 0){
         /* Inser Registro */
         $sql = "insert into empresas set
-        ruc='{$post['register']['ruc']}',
-        razon='{$post['register']['razon_social']}'";
+            ruc='{$post['register']['ruc']}',
+            razon='{$post['register']['razon_social']}'";
         $conn->query($sql);
+        $sqlInsertUsuario = "insert into usuarios set 
+            email='{$post['register']['email']}',
+            password='{$post['register']['password']}'";
+        $conn->query($sqlInsertUsuario);
         echo json_encode('ok');
     }else{
         echo json_encode('no');
@@ -28,7 +38,28 @@ if ($f == 'register') {
 
 }
 
+if ($f == 'login'){
+    $cantidad = $Api->countUsuarios($post['login']['email'], $post['login']['password']);
+    $Api->logear(1);
+}
 
+class Api {
+    public function countUsuarios($email, $password){
+        global $conn;
+        $cantidadUsers = "select count(*) cantidad from usuarios where email='$email' and password='$password'";
+        $cantidadUsers = $conn->query($cantidadUsers)->fetch_array(MYSQLI_ASSOC);
+        $cantidadUsers = $cantidadUsers['cantidad'];
+        return $cantidadUsers;
+//        echo json_encode($cantidadUsers);
+    }
+
+    public function logear ($cantidad){
+//        return 'ok';
+        if ($cantidad == 1){
+            echo 'ok';
+        }
+    }
+}
 
 // class User {
 //     protected $loggedIn = false;

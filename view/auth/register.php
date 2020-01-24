@@ -131,6 +131,7 @@
             Registrar: function () {
                 axios.post('_auth.php?f=register', {register: this.register})
                     .then(res => {
+                        console.log(res.data)
 
                         if (res.data == 'ok') {
                             Swal.fire({
@@ -141,6 +142,13 @@
                             }).then((result) => {
                                 window.location.href = "/view/auth/login.php";
                             });
+                        }else{
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Huvo un Error',
+                                icon: 'error',
+                                confirmButtonText: 'Arreglar'
+                            })
                         }
                     });
             }
