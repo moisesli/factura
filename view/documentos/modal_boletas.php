@@ -1,5 +1,5 @@
-<!-- Modal Boletas New-->
-<div class="modal fade" id="boletaModalNew" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Boletas -->
+<div class="modal fade" id="boletaModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

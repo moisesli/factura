@@ -33,10 +33,10 @@
         <!-- Botones and DatePicker -->
         <div class="row d-flex justify-content-between">
           <div class="col-sm-6">
-            <button class="btn btn-primary" @click="facturaOpenModalNew"><i class="fa fa-plus"></i> Factura</button>
-            <button class="btn btn-secondary" @click="boletaOpenModalNew"><i class="fa fa-plus"></i> Boleta</button>
-            <button class="btn btn-success"><i class="fa fa-plus"></i> N. Credito</button>
-            <button class="btn btn-warning"><i class="fa fa-plus"></i> N. Debito</button>
+            <button class="btn btn-primary" @click="facturaOpenModal('nuevo')"><i class="fa fa-plus"></i> Factura</button>
+            <button class="btn btn-secondary" @click="boletaOpenModal('nuevo')"><i class="fa fa-plus"></i> Boleta</button>
+            <button class="btn btn-success" @click="creditoOpenModal('nuevo')"><i class="fa fa-plus"></i> N. Credito</button>
+            <button class="btn btn-warning" @click="debitoOpenModal('nuevo')"><i class="fa fa-plus"></i> N. Debito</button>
           </div>
           <div class="w-30">
             <input type="text" class="form-control" id="reservation">

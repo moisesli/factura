@@ -2,25 +2,37 @@
     var app = new Vue({
         el: '#app',
         data: {
-            nombre: 'moises',
-            factura: {},
-            boleta: {},
-            nota: {},
-            debito: {}
+            nombre: 'moises',            
+            factura: {
+                id: ''
+            },
+            boleta: {
+                id: ''
+            },
+            nota: {
+                id: ''
+            },
+            debito: {
+                id: ''
+            }
         },
         methods: {
-            facturaOpenModalNew: function() {
-                console.log('open modal')
-                $('#facturaModalNew').modal('show')
+            facturaOpenModal: function(action) {
+                if (action == 'nuevo'){
+                    this.factura.id = '';                    
+                }else if (action == 'editar'){                    
+                }
+                
+                $('#facturaModal').modal('show')
             },
-            boletaOpenModalNew: function() {
-                $('#boletaModalNew').modal('show')
+            boletaOpenModal: function(action) {
+                $('#boletaModal').modal('show')
             },
-            notaOpenModalNew: function() {
-
+            creditoOpenModal: function(action) {
+                $('#creditoModal').modal('show')
             },
-            debitoOpenModalNew: function() {
-
+            debitoOpenModal: function(action) {
+                $('#debitoModal').modal('show')
             }
         }
     });
