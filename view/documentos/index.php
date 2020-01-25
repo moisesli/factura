@@ -5,8 +5,15 @@
   <?php include '../layout/sidebar.php' ?>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" id="app">
 
+    <?php 
+      // Import modal New All
+      include_once './modal_facturas.php';
+      include_once './modal_boletas.php';
+      include_once './modal_notacredito.php';
+      include_once './modal_notadebito.php';
+    ?>
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -14,7 +21,7 @@
         <!-- Titulo y Breadcrum -->
         <div class="row mb-3">
           <div class="col-sm-6">
-            <h1>Documentos Electronicos</h1>
+            <h1>Documentos Electronicos {{nombre}}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -26,8 +33,8 @@
         <!-- Botones and DatePicker -->
         <div class="row d-flex justify-content-between">
           <div class="col-sm-6">
-            <button class="btn btn-primary"><i class="fa fa-plus"></i> Factura</button>
-            <button class="btn btn-secondary"><i class="fa fa-plus"></i> Boleta</button>
+            <button class="btn btn-primary" @click="facturaOpenModalNew"><i class="fa fa-plus"></i> Factura</button>
+            <button class="btn btn-secondary" @click="boletaOpenModalNew"><i class="fa fa-plus"></i> Boleta</button>
             <button class="btn btn-success"><i class="fa fa-plus"></i> N. Credito</button>
             <button class="btn btn-warning"><i class="fa fa-plus"></i> N. Debito</button>
           </div>
@@ -64,7 +71,8 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-                <table class="table table-hover">
+                
+                <table class="table table-hover">                
                   <thead>
                   <tr>
                     <th>Tipo</th>
@@ -113,6 +121,8 @@
                   </tr>
                   </tbody>
                 </table>
+                <!-- / .Tabla Documentos -->
+
               </div>
               <!-- /.card-body -->
             </div>
@@ -150,18 +160,15 @@
 <!-- ./wrapper -->
 
 <?php include '../layout/footer.php' ?>
+<?php include_once './documentos_js.php' ?>
 <script>
-  Vue.config.productionTip = false;
+  Vue.config.productionTip = false;  
   $(function () {
-    //Date range picker
-    // $('#reservation').daterangepicker()
-    //Date range picker with time picker
-
     $('#reservation').daterangepicker({
       singleDatePicker: true,
       showDropdowns: true,
       locale: {
-        format: 'YYYY/MM/DD'
+        format: 'DD/MM/YYYY'
       }
     });
   })
