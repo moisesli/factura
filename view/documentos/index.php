@@ -6,12 +6,13 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
-
-        <!-- Primera fila -->
-        <div class="row mb-2">
+        <!-- Titulo y Breadcrum -->
+        <div class="row mb-3">
           <div class="col-sm-6">
             <h1>Documentos Electronicos</h1>
           </div>
@@ -22,7 +23,6 @@
             </ol>
           </div>
         </div>
-
         <!-- Botones and DatePicker -->
         <div class="row d-flex justify-content-between">
           <div class="col-sm-6">
@@ -37,6 +37,7 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
+
 
     <!-- Main content -->
     <section class="content">
@@ -150,6 +151,7 @@
 
 <?php include '../layout/footer.php' ?>
 <script>
+  Vue.config.productionTip = false;
   $(function () {
     //Date range picker
     // $('#reservation').daterangepicker()
@@ -162,33 +164,5 @@
         format: 'YYYY/MM/DD'
       }
     });
-
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges: {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate: moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-
   })
 </script>
