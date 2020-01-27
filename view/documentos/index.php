@@ -7,7 +7,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" id="app">
 
-    <?php 
+    <?php
       // Import modal New All
       include_once './modal_facturas.php';
       include_once './modal_boletas.php';
@@ -71,8 +71,8 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-                
-                <table class="table table-hover">                
+
+                <table class="table table-hover">
                   <thead>
                   <tr>
                     <th>Tipo</th>
@@ -162,7 +162,7 @@
 <?php include '../layout/footer.php' ?>
 <?php include_once './documentos_js.php' ?>
 <script>
-  Vue.config.productionTip = false;  
+  Vue.config.productionTip = false;
   $(function () {
     $('#reservation').daterangepicker({
       singleDatePicker: true,
