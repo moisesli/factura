@@ -4,6 +4,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- Titulo -->
         <h5 class="modal-title" v-if="factura.id ==''"><i class="fa fa-file"></i> Nueva Factura</h5>
         <h5 class="modal-title" v-else>Editar Factura</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -41,17 +42,54 @@
               <input type="text" class="form-control" placeholder="">
             </div>
           </div>
-
+          
+          <!-- Opciones -->
           <div class="pl-2" style="width: 5.5%; box-sizing: content-box;">
             <div class="bg-light">
-              <small class="form-text text-muted">Opcion </small>
-              <button class="btn btn-default"><i class="fa fa-cog"></i></button>
+              <small class="form-text text-muted">Opcion </small>              
+              <div class="dropdown">
+                <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu">
+                  <form class="px-4 py-3">                    
+
+                    <!-- Serie -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Serie </small>                      
+                      <select class="form-control">
+                        <option value="1">F001</option>
+                        <option value="2">F002</option>
+                        <option value="3">F003</option>
+                      </select>
+                    </div>
+
+                    <!-- Fecha Emision -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Fecha Emision </small>                      
+                      <input type="date" class="form-control" placeholder="Password">
+                    </div>
+
+                    <!-- Venta Interna -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Venta interna </small>                      
+                      <select class="form-control">
+                        <option value="1">Venta Interna</option>
+                        <option value="2">Anticipo o Deduccion de Anticipo en venta interna</option>
+                        <option value="3">Exportacion</option>
+                      </select>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
             </div>
           </div>
 
+          <!-- Boton Agregar Fila -->
           <div class="pl-2" style="width: 5.5%; box-sizing: content-box;">
             <div class="bg-light">
-              <small class="form-text text-muted">Agregar </small>
+              <small class="form-text text-muted">Agregar </small>                          
               <button class="btn btn-default"><i class="fa fa-cog"></i></button>
             </div>
           </div>
@@ -108,8 +146,45 @@
           </div>
           <!-- Opciones -->
           <div style="width: 5.5%; box-sizing: content-box;">
-            <div class="bg-light">              
-              <button class="btn btn-default"><i class="fa fa-cog"></i></button>
+            <div class="bg-light">
+              <div class="dropdown">
+                  <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  </button>
+                  <div class="dropdown-menu">
+                    <form class="px-4 py-3">                    
+
+                      <!-- Tipo de IGV -->
+                      <div class="form-group">
+                        <small class="form-text text-muted">Tipo de IGV</small>                      
+                        <select class="form-control">
+                          <option value="1">Gravada</option>
+                          <option value="2">Exonerada</option>
+                          <option value="3">Inafecto</option>
+                        </select>
+                      </div>
+
+                      <!-- Descuento -->
+                      <div class="form-group">
+                        <small class="form-text text-muted">Descuento </small>                      
+                        <input type="text" class="form-control" placeholder="0.00">
+                      </div>
+
+                      <!-- Igv Linea -->
+                      <div class="form-group">
+                        <small class="form-text text-muted">IGV Linea </small>                      
+                        <input type="text" class="form-control" placeholder="0.00">
+                      </div>
+
+                      <!-- Eliminar -->
+                      <div class="form-group">
+                        <small class="form-text text-muted">Eliminar</small>                      
+                        <button class="btn btn-default"><i class="fa fa-trash"></i></button>
+                      </div>
+
+                    </form>
+
+                  </div>
+                </div>            
             </div>
           </div>
           <!-- Cantidad -->
@@ -192,7 +267,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-primary" v-if="factura.id ==''"><i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-primary" v-else><i class="fa fa-edit"></i> Editar</button>
       </div>
     </div>
   </div>
