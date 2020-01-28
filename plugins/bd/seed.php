@@ -15,7 +15,7 @@ include "./conn.php";
 $conn->query("truncate productos");
 $faker = Faker\Factory::create();
 
-for ($i = 0; $i <= 100; $i++) {
+for ($i = 0; $i <= 300; $i++) {
     
     $codigo = $faker->regexify('[A-Z0-9]{10}');
     $nombre = $faker->name;
