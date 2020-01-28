@@ -1,6 +1,5 @@
 <!-- Modal Facturas -->
-<div class="modal fade" id="facturaModal" data-backdrop="static" tabindex="-1" role="dialog"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="facturaModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -19,7 +18,7 @@
           <div class="" style="width: 26%; box-sizing: content-box;">
             <div class="bg-light">
               <small class="form-text text-muted">Ruc </small>
-              <div class="input-group">                
+              <div class="input-group">
                 <input type="text" class="form-control" placeholder="4216253">
                 <div class="input-group-append">
                   <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -41,20 +40,20 @@
               <input type="text" class="form-control" placeholder="">
             </div>
           </div>
-          
+
           <!-- Opciones -->
           <div class="pl-2" style="width: 5.5%; box-sizing: content-box;">
             <div class="bg-light">
-              <small class="form-text text-muted">Opcion </small>              
+              <small class="form-text text-muted">Opcion </small>
               <div class="dropdown">
                 <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                  <form class="px-4 py-3" @submit.prevent="">                    
+                  <form class="px-4 py-3" @submit.prevent="">
 
                     <!-- Serie -->
                     <div class="form-group">
-                      <small class="form-text text-muted">Serie </small>                      
+                      <small class="form-text text-muted">Serie </small>
                       <select class="form-control">
                         <option value="1">F001</option>
                         <option value="2">F002</option>
@@ -64,13 +63,13 @@
 
                     <!-- Fecha Emision -->
                     <div class="form-group">
-                      <small class="form-text text-muted">Fecha Emision </small>                      
+                      <small class="form-text text-muted">Fecha Emision </small>
                       <input type="date" class="form-control" placeholder="Password">
                     </div>
 
                     <!-- Venta Interna -->
                     <div class="form-group">
-                      <small class="form-text text-muted">Venta interna </small>                      
+                      <small class="form-text text-muted">Venta interna </small>
                       <select class="form-control">
                         <option value="1">Venta Interna</option>
                         <option value="2">Anticipo o Deduccion de Anticipo en venta interna</option>
@@ -88,7 +87,7 @@
           <!-- Boton Agregar Fila -->
           <div class="pl-2" style="width: 5.5%; box-sizing: content-box;">
             <div class="bg-light">
-              <small class="form-text text-muted">Agregar </small>                          
+              <small class="form-text text-muted">Agregar </small>
               <button class="btn btn-primary btn-block" @click="facturaAddLine">
                 <i class="fa fa-plus"></i>
               </button>
@@ -102,112 +101,116 @@
           <!-- Producto -->
           <div class="pr-2" style="width: 39%; box-sizing: content-box;">
             <div>
-              <small class="form-text text-muted">Productos </small>              
+              <small class="form-text text-muted">Productos </small>
             </div>
           </div>
           <!-- Opciones -->
           <div class="pr-2" style="width: 6%; box-sizing: content-box;">
             <div>
-              <small class="form-text text-muted">Opci</small>              
+              <small class="form-text text-muted">Opci</small>
             </div>
           </div>
           <!-- Cantidad -->
           <div class="pr-2" style="width: 11%; box-sizing: content-box;">
             <div>
-              <small class="form-text text-muted">Cantidad </small>              
+              <small class="form-text text-muted">Cantidad </small>
             </div>
           </div>
           <!-- Precio -->
           <div class="pr-2" style="width: 15%; box-sizing: content-box;">
             <div>
-              <small class="form-text text-muted">Precio </small>              
+              <small class="form-text text-muted">Precio </small>
             </div>
           </div>
           <!-- Subtotal -->
           <div class="pr-2" style="width: 15%; box-sizing: content-box;">
             <div>
-              <small class="form-text text-muted">Subtotal </small>              
+              <small class="form-text text-muted">Subtotal </small>
             </div>
           </div>
           <!-- Total -->
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div>
-              <small class="form-text text-muted">Total </small>              
+              <small class="form-text text-muted">Total </small>
             </div>
           </div>
-        </div> 
+        </div>
 
         <div class="d-inline-flex mb-1" style="width: 100%;" v-for="(item, index) in factura.items">
           <!-- Producto -->
           <div style="width: 37%; box-sizing: border-box;">
-            <div class="pr-2 bg-light">                       
-              <input type="text" class="form-control" v-model="item.nombre" @input="facturaItemNombreChange(item)" placeholder="Producto">
+            <div class="pr-2 bg-light">
+              <input type="search" class="form-control" :list="'nombre'+index" v-model="item.nombre" @input="facturaItemNombreChange(item)" placeholder="Producto">
+              <datalist :id="'nombre'+index">
+                <option value="Valor">
+                <!-- <option v-for="(result,index) in productList" :value="result.codigo + ' - ' + result.descripcion"> -->
+              </datalist>
             </div>
           </div>
           <!-- Opciones -->
           <div style="width: 5.5%; box-sizing: content-box;">
             <div class="bg-light">
               <div class="dropdown">
-                  <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  </button>
-                  <div class="dropdown-menu">
-                    <form class="px-4 py-3" @submit.prevent="">                    
+                <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu">
+                  <form class="px-4 py-3" @submit.prevent="">
 
-                      <!-- Tipo de IGV -->
-                      <div class="form-group">
-                        <small class="form-text text-muted">Tipo de IGV</small>                      
-                        <select class="form-control" v-model="item.tipo_igv">
-                          <option value="1">Gravada</option>
-                          <option value="2">Exonerada</option>
-                          <option value="3">Inafecto</option>
-                        </select>
-                      </div>
+                    <!-- Tipo de IGV -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Tipo de IGV</small>
+                      <select class="form-control" v-model="item.tipo_igv">
+                        <option value="1">Gravada</option>
+                        <option value="2">Exonerada</option>
+                        <option value="3">Inafecto</option>
+                      </select>
+                    </div>
 
-                      <!-- Descuento -->
-                      <div class="form-group">
-                        <small class="form-text text-muted">Descuento </small>                      
-                        <input type="text" class="form-control" v-model="item.descuento" placeholder="0.00">
-                      </div>
+                    <!-- Descuento -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Descuento </small>
+                      <input type="text" class="form-control" v-model="item.descuento" placeholder="0.00">
+                    </div>
 
-                      <!-- Igv Linea -->
-                      <div class="form-group">
-                        <small class="form-text text-muted">IGV Linea </small>                      
-                        <input type="text" class="form-control" v-model="item.igv" placeholder="0.00">
-                      </div>
+                    <!-- Igv Linea -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">IGV Linea </small>
+                      <input type="text" class="form-control" v-model="item.igv" placeholder="0.00">
+                    </div>
 
-                      <!-- Eliminar -->
-                      <div class="form-group">
-                        <small class="form-text text-muted">Eliminar</small>                      
-                        <button class="btn btn-default"><i class="fa fa-trash"></i></button>
-                      </div>
+                    <!-- Eliminar -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Eliminar</small>
+                      <button class="btn btn-default"><i class="fa fa-trash"></i></button>
+                    </div>
 
-                    </form>
+                  </form>
 
-                  </div>
-                </div>            
+                </div>
+              </div>
             </div>
           </div>
           <!-- Cantidad -->
           <div style="width: 12.5%; box-sizing: border-box;">
-            <div class="pr-2 pl-2 bg-light">                            
+            <div class="pr-2 pl-2 bg-light">
               <input type="text" class="form-control text-right" v-model="item.cantidad" @input="facturaItemCantidadChange(item)" placeholder="0">
             </div>
           </div>
           <!-- Precio -->
           <div style="width: 15%; box-sizing: content-box;">
-            <div class="pr-2">              
+            <div class="pr-2">
               <input type="text" class="form-control text-right" v-model="item.precio_sin_igv" @input="facturaItemPrecioChange(item)" placeholder="0.00">
             </div>
           </div>
           <!-- Subtotal -->
           <div class="" style="width: 15%; box-sizing: content-box;">
-            <div class="pr-2">              
+            <div class="pr-2">
               <input type="text" class="form-control text-right" v-model="item.subtotal" placeholder="0.00">
             </div>
           </div>
           <!-- Total -->
           <div style="width: 15%; box-sizing: border-box;">
-            <div class="bg-light">              
+            <div class="bg-light">
               <input type="text" class="form-control text-right" v-model="item.total" @input="facturaItemTotalChange(item)" placeholder="0.00">
             </div>
           </div>
@@ -222,7 +225,7 @@
           <div class="text-right" style="width: 25%; box-sizing: content-box;">
             <div class="pr-2">
               Gravada
-            </div>            
+            </div>
           </div>
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="bg-light">
@@ -239,7 +242,7 @@
           <div class="text-right" style="width: 25%; box-sizing: content-box;">
             <div class="pr-2">
               IGV
-            </div>            
+            </div>
           </div>
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="bg-light">
@@ -255,7 +258,7 @@
           <div class="text-right" style="width: 25%; box-sizing: content-box;">
             <div class="pr-2">
               TOTAL
-            </div>            
+            </div>
           </div>
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="bg-light">
