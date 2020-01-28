@@ -15,7 +15,6 @@
 
         <!-- Datos Generales-->
         <div class="d-inline-flex" style="width: 100%;">
-
           <!-- RUC -->
           <div class="" style="width: 26%; box-sizing: content-box;">
             <div class="bg-light">
@@ -51,7 +50,7 @@
                 <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                  <form class="px-4 py-3">                    
+                  <form class="px-4 py-3" @submit.prevent="">                    
 
                     <!-- Serie -->
                     <div class="form-group">
@@ -90,10 +89,11 @@
           <div class="pl-2" style="width: 5.5%; box-sizing: content-box;">
             <div class="bg-light">
               <small class="form-text text-muted">Agregar </small>                          
-              <button class="btn btn-default"><i class="fa fa-cog"></i></button>
+              <button class="btn btn-primary btn-block" @click="facturaAddLine">
+                <i class="fa fa-plus"></i>
+              </button>
             </div>
           </div>
-
         </div> <!-- End inline Flex -->
 
         <!-- ITEMS
@@ -137,11 +137,11 @@
           </div>
         </div> 
 
-        <div class="d-inline-flex" style="width: 100%;">
+        <div class="d-inline-flex mb-1" style="width: 100%;" v-for="(item, index) in factura.items">
           <!-- Producto -->
           <div style="width: 37%; box-sizing: border-box;">
             <div class="pr-2 bg-light">                       
-              <input type="text" class="form-control" placeholder="Producto">
+              <input type="text" class="form-control" v-model="item.nombre" @input="facturaItemNombreChange(item)" placeholder="Producto">
             </div>
           </div>
           <!-- Opciones -->
@@ -151,12 +151,12 @@
                   <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   </button>
                   <div class="dropdown-menu">
-                    <form class="px-4 py-3">                    
+                    <form class="px-4 py-3" @submit.prevent="">                    
 
                       <!-- Tipo de IGV -->
                       <div class="form-group">
                         <small class="form-text text-muted">Tipo de IGV</small>                      
-                        <select class="form-control">
+                        <select class="form-control" v-model="item.tipo_igv">
                           <option value="1">Gravada</option>
                           <option value="2">Exonerada</option>
                           <option value="3">Inafecto</option>
@@ -166,13 +166,13 @@
                       <!-- Descuento -->
                       <div class="form-group">
                         <small class="form-text text-muted">Descuento </small>                      
-                        <input type="text" class="form-control" placeholder="0.00">
+                        <input type="text" class="form-control" v-model="item.descuento" placeholder="0.00">
                       </div>
 
                       <!-- Igv Linea -->
                       <div class="form-group">
                         <small class="form-text text-muted">IGV Linea </small>                      
-                        <input type="text" class="form-control" placeholder="0.00">
+                        <input type="text" class="form-control" v-model="item.igv" placeholder="0.00">
                       </div>
 
                       <!-- Eliminar -->
@@ -190,28 +190,28 @@
           <!-- Cantidad -->
           <div style="width: 12.5%; box-sizing: border-box;">
             <div class="pr-2 pl-2 bg-light">                            
-              <input type="text" class="form-control text-right" placeholder="0">
+              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="facturaItemCantidadChange(item)" placeholder="0">
             </div>
           </div>
           <!-- Precio -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">              
-              <input type="text" class="form-control text-right" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.precio_sin_igv" @input="facturaItemPrecioChange(item)" placeholder="0.00">
             </div>
           </div>
           <!-- Subtotal -->
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">              
-              <input type="text" class="form-control text-right" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.subtotal" placeholder="0.00">
             </div>
           </div>
           <!-- Total -->
           <div style="width: 15%; box-sizing: border-box;">
             <div class="bg-light">              
-              <input type="text" class="form-control text-right" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.total" @input="facturaItemTotalChange(item)" placeholder="0.00">
             </div>
           </div>
-        </div>
+        </div> <!-- End Line -->
 
         <!-- TOTALES 
         *****************************-->
