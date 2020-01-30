@@ -162,6 +162,7 @@
 
 <?php include '../layout/footer.php' ?>
 <?php include_once './documentos_js.php' ?>
+
 <script>
   Vue.config.productionTip = false;
   $(function () {

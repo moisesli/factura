@@ -140,10 +140,16 @@
           <!-- Producto -->
           <div style="width: 37%; box-sizing: border-box;">
             <div class="pr-2 bg-light">
-              <input type="search" class="form-control" :list="'nombre'+index" v-model="item.nombre" @input="facturaItemNombreChange(item)" placeholder="Producto">
-              <datalist :id="'nombre'+index">
-                <option value="Valor">
-                <!-- <option v-for="(result,index) in productList" :value="result.codigo + ' - ' + result.descripcion"> -->
+
+              <!-- <select id="supplier_id" class="form-control select2bs4" v-model="item.nombre" v-select='supplier_id' @input="facturaItemNombreChange(index,item,item.nombre)">
+                <option value="arr">arr</option>
+                <option value="niklesh">Niklesh</option>
+                <option value="sachin">Sachin</option>
+                <option v-for="(result,index) in item.productos">{{result.nombre}}</option>
+              </select> -->
+              <input type="search" class="form-control" :list="'nombre'+index" v-model="item.nombre" @input="facturaItemNombreChange(index,item,item.nombre)" onmousedown="value = '';" autocomplete="off">
+              <datalist :id="'nombre'+index" open="open">
+                <option v-for="(result,index) in item.productos" :value="result.nombre">
               </datalist>
             </div>
           </div>

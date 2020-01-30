@@ -3,6 +3,7 @@
       el: '#app',
       data: {
          nombre: 'moises',
+         productosList: [],
          factura: {
             id: '',
             ruc: '',
@@ -12,6 +13,7 @@
             fecha_emision: '',
             venta_interna: '',
             items: [{
+               productos: [],
                nombre: '',
                unidad: '',
                cantidad: null,
@@ -35,6 +37,25 @@
          }
       },
       methods: {
+         facturaItemNombreChange: function(index, item, text) {
+            // console.log(text);
+            // this.factura.items[index].cantidad = 1;
+
+            axios.post('./_documentos.php?f=searchproductos', {
+               text: text
+            }).then(res => {
+               console.log(res.data)
+               // console.log(this.factura.items[index].productos)               
+               if (res.data == 'unoIgual') {
+                  this.factura.items[index].productos = null;
+               } else if (res.data == 'ceroNinguno') {
+                  this.factura.items[index].productos = null;
+               } else {
+                  this.factura.items[index].productos = res.data;
+               }                             
+            });
+
+         },
          facturaItemCantidadChange: function(item) {
             console.log(item)
          },
