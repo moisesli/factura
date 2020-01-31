@@ -17,25 +17,47 @@ class documentos
     {
         global $conn, $post;
         $productos = "select * from productos where nombre like '%" . $post['text'] . "%'";
-        $productos = $conn->query($productos)->fetch_all(MYSQLI_ASSOC);
 
+
+        // Solo entra con tres caracteres
         if (strlen($post['text']) > 2) {
+
+            // Ejecutamos la consulta
+            $productos = $conn->query($productos)->fetch_all(MYSQLI_ASSOC);
+
+            // Agrega campo lista al array
+            foreach ($productos as $index => $sqlite) {
+                $productos[$index]['lista'] = '';
+            }
+
+            // solo un producto
             if (count($productos) == 1) {
+
+                // ultima replica
                 if ($productos[0]['nombre'] == $post['text']) {
-                    return 'unoIgual';
+                    $productos[0]['lista'] = 'unoIgual';
+                    return json_encode($productos);
                 } else {
                     // retorna normal solo hay una coincidencia
                     return json_encode($productos);
                 }
+
+                // ningun producto
             } elseif (count($productos) == 0) {
                 // Ninguna Coincidencia
-                return 'ceroNinguno';
+                $productos = array();
+                $productos[0]['lista'] = 'ceroNinguno';
+                return json_encode($productos);
+
+                // varios productos
             } else {
-                // Varias coincidencias
                 return json_encode($productos);
             }
-        }else{
-            return 'ceroNinguno';
+        } else {
+            // Si no hay caracteres minimos
+            $productos = array();
+            $productos[0]['lista'] = 'ceroNinguno';
+            return json_encode($productos);
         }
     }
 }

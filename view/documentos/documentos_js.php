@@ -39,19 +39,24 @@
       methods: {
          facturaItemNombreChange: function(index, item, text) {
             // console.log(text);
-            // this.factura.items[index].cantidad = 1;
 
             axios.post('./_documentos.php?f=searchproductos', {
                text: text
-            }).then(res => {
-               console.log(res.data)
-               // console.log(this.factura.items[index].productos)               
-               if (res.data == 'unoIgual') {
+            }).then(res => {               
+               console.log(this.factura.items[index].productos)               
+               if (res.data[0].lista == 'unoIgual') {
                   this.factura.items[index].productos = null;
-               } else if (res.data == 'ceroNinguno') {
+                  this.factura.items[index].cantidad = 1;
+                  this.factura.items[index].precio_con_igv = res.data[0].precio_con_igv;
+                  
+               } else if (res.data[0].lista == 'ceroNinguno') {
                   this.factura.items[index].productos = null;
+                  this.factura.items[index].cantidad = null;
+                  this.factura.items[index].precio_con_igv = null;
                } else {
                   this.factura.items[index].productos = res.data;
+                  this.factura.items[index].cantidad = null;
+                  this.factura.items[index].precio_con_igv = null;                  
                }                             
             });
 

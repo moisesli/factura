@@ -205,7 +205,7 @@
           <!-- Precio -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">
-              <input type="text" class="form-control text-right" v-model="item.precio_sin_igv" @input="facturaItemPrecioChange(item)" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="facturaItemPrecioChange(item)" placeholder="0.00">
             </div>
           </div>
           <!-- Subtotal -->
