@@ -12,6 +12,9 @@
         serie: '',
         fecha_emision: '',
         venta_interna: '',
+        total_gravadas: null,
+        total_igv: null,
+        total_total: null,
         items: [{
           productos: [],
           nombre: '',
