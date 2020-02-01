@@ -147,7 +147,7 @@
                 <option value="sachin">Sachin</option>
                 <option v-for="(result,index) in item.productos">{{result.nombre}}</option>
               </select> -->
-              <input type="search" class="form-control" :list="'nombre'+index" v-model="item.nombre" @input="facturaItemNombreChange(index,item,item.nombre)" onmousedown="value = '';" autocomplete="off">
+              <input type="search" class="form-control" :list="'nombre'+index" v-model="item.nombre" @input="facturaItemNombreChange(index,item,item.nombre)" autocomplete="off">
               <datalist :id="'nombre'+index" open="open">
                 <option v-for="(result,index) in item.productos" :value="result.nombre">
               </datalist>
@@ -199,7 +199,7 @@
           <!-- Cantidad -->
           <div style="width: 12.5%; box-sizing: border-box;">
             <div class="pr-2 pl-2 bg-light">
-              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="facturaItemCantidadChange(item)" placeholder="0">
+              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="facturaItemCantidadChange(index, item)" placeholder="0">
             </div>
           </div>
           <!-- Precio -->

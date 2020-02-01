@@ -19,7 +19,7 @@ for ($i = 0; $i <= 300; $i++) {
     
     $codigo = $faker->regexify('[A-Z0-9]{10}');
     $nombre = $faker->name;
-    $precio_con_igv = $faker->randomFloat($nbMaxDecimals = 6, $min = 0, $max = 1000);
+    $precio_con_igv = $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 1000);
     $igv = $precio_con_igv * 0.18;
     $precio_sin_igv = $precio_con_igv - $igv;
     $tipo_igv = $faker->randomElement($array = array ('1','2','3'));    
