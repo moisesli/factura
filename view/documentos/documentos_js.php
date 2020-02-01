@@ -43,7 +43,7 @@
         axios.post('./_documentos.php?f=searchproductos', {
           text: text
         }).then(res => {
-          // console.log(this.factura.items[index].productos)               
+          // console.log(this.factura.items[index].productos)
           if (res.data[0].lista == 'unoIgual') {
             this.factura.items[index].productos = null;
             this.factura.items[index].cantidad = 1;
@@ -71,17 +71,18 @@
       facturaItemCantidadChange: function(i, item) {
         console.log(typeof i + ' = ' + i)
         if (this.factura.items[i].cantidad != 0) {
-          // los calculos se hacen en base a los precios unitarios on igv y sin igv          
-          this.factura.items[i].subtotal = this.factura.items[i].cantidad * this.factura.items[i].precio_sin_igv;
-          this.factura.items[i].total = this.factura.items[i].cantidad * this.factura.items[i].precio_con_igv;
+          // los calculos se hacen en base a los precios unitarios con igv y sin igv
+          this.factura.items[i].subtotal = (this.factura.items[i].cantidad * this.factura.items[i].precio_sin_igv).toFixed(2);
+          this.factura.items[i].total = (this.factura.items[i].cantidad * this.factura.items[i].precio_con_igv).toFixed(2);
+          this.factura.items[i].igv = (this.factura.items[i].total - this.factura.items[i].subtotal).toFixed(2);
         }
-        // console.log(item)
       },
       facturaItemPrecioChange: function(i, item) {
-        console.log(item)
-      },
-      facturaItemTotalChange: function(item) {
-        console.log(item)
+        this.factura.items[i].precio_sin_igv = this.factura.items[i].precio_con_igv - this.factura.items[i].precio_con_igv * 0.18;
+        this.factura.items[i].subtotal = (this.factura.items[i].cantidad * this.factura.items[i].precio_sin_igv).toFixed(2);
+        this.factura.items[i].total = (this.factura.items[i].cantidad * this.factura.items[i].precio_con_igv).toFixed(2);
+        this.factura.items[i].igv = (this.factura.items[i].total - this.factura.items[i].subtotal).toFixed(2);
+        // console.log(item)
       },
       facturaOpenModal: function(action) {
         if (action == 'nuevo') {

@@ -140,13 +140,6 @@
           <!-- Producto -->
           <div style="width: 37%; box-sizing: border-box;">
             <div class="pr-2 bg-light">
-
-              <!-- <select id="supplier_id" class="form-control select2bs4" v-model="item.nombre" v-select='supplier_id' @input="facturaItemNombreChange(index,item,item.nombre)">
-                <option value="arr">arr</option>
-                <option value="niklesh">Niklesh</option>
-                <option value="sachin">Sachin</option>
-                <option v-for="(result,index) in item.productos">{{result.nombre}}</option>
-              </select> -->
               <input type="search" class="form-control" :list="'nombre'+index" v-model="item.nombre" @input="facturaItemNombreChange(index,item,item.nombre)" autocomplete="off">
               <datalist :id="'nombre'+index" open="open">
                 <option v-for="(result,index) in item.productos" :value="result.nombre">
@@ -205,24 +198,24 @@
           <!-- Precio -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">
-              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="facturaItemPrecioChange(item)" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="facturaItemPrecioChange(index, item)" placeholder="0.00">
             </div>
           </div>
           <!-- Subtotal -->
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">
-              <input type="text" class="form-control text-right" v-model="item.subtotal" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.subtotal" placeholder="0.00" disabled>
             </div>
           </div>
           <!-- Total -->
           <div style="width: 15%; box-sizing: border-box;">
             <div class="bg-light">
-              <input type="text" class="form-control text-right" v-model="item.total" @input="facturaItemTotalChange(item)" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.total" placeholder="0.00" disabled>
             </div>
           </div>
         </div> <!-- End Line -->
 
-        <!-- TOTALES 
+        <!-- TOTALES
         *****************************-->
         <!-- Gravada -->
         <div class="d-inline-flex pt-4  d-flex align-items-end align-items-center" style="width: 100%;">
