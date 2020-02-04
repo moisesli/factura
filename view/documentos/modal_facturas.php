@@ -261,7 +261,7 @@
           </div>
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="bg-light">
-              <input type="email" class="form-control text-right" placeholder="0.00">
+              <input type="email" class="form-control text-right" v-model="factura.total_total" placeholder="0.00">
             </div>
           </div>
         </div>

@@ -40,6 +40,12 @@
       }
     },
     methods: {
+      itemsTotal: function() {
+        this.factura.total_total = this.factura.items.reduce(function(total, item) {
+          return total + Number(item.total);
+        }, 0);        
+        // https://www.youtube.com/watch?v=dink4fgmF9Q
+      },
       facturaItemNombreChange: function(index, item, text) {
         // console.log(text);
 
@@ -55,6 +61,7 @@
             this.factura.items[index].precio_sin_igv = res.data[0].precio_sin_igv;
             this.factura.items[index].subtotal = res.data[0].subtotal;
             this.factura.items[index].total = res.data[0].total;
+            this.itemsTotal();
           } else if (res.data[0].lista == 'ceroNinguno') {
             this.factura.items[index].productos = null;
             this.factura.items[index].cantidad = null;
