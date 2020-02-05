@@ -11,7 +11,8 @@
         </button>
       </div>
       <div class="modal-body">
-
+        
+        <!--{{ $data.factura }}-->
         <!-- Datos Generales-->
         <div class="d-inline-flex" style="width: 100%;">
           <!-- RUC -->
@@ -19,7 +20,7 @@
             <div class="bg-light">
               <small class="form-text text-muted">Ruc </small>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="4216253">
+                <input type="text" class="form-control" v-model="factura.ruc" placeholder="4216253">
                 <div class="input-group-append">
                   <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
@@ -30,14 +31,14 @@
           <div class="pl-2" style="width: 31%; box-sizing: content-box;">
             <div class="bg-light">
               <small class="form-text text-muted">Razon Social </small>
-              <input type="text" class="form-control" placeholder="">
+              <input type="text" class="form-control" v-model="factura.razon" placeholder="">
             </div>
           </div>
 
           <div class="pl-2" style="width: 32%; box-sizing: content-box;">
             <div class="bg-light">
               <small class="form-text text-muted">Direccion </small>
-              <input type="text" class="form-control" placeholder="">
+              <input type="text" class="form-control" v-model="factura.direccion" placeholder="">
             </div>
           </div>
 
@@ -54,7 +55,7 @@
                     <!-- Serie -->
                     <div class="form-group">
                       <small class="form-text text-muted">Serie </small>
-                      <select class="form-control">
+                      <select class="form-control" v-model="factura.serie">
                         <option value="1">F001</option>
                         <option value="2">F002</option>
                         <option value="3">F003</option>
@@ -64,13 +65,13 @@
                     <!-- Fecha Emision -->
                     <div class="form-group">
                       <small class="form-text text-muted">Fecha Emision </small>
-                      <input type="date" class="form-control" placeholder="Password">
+                      <input type="date" class="form-control" v-model="factura.fecha_emision" placeholder="Password">
                     </div>
 
                     <!-- Venta Interna -->
                     <div class="form-group">
                       <small class="form-text text-muted">Venta interna </small>
-                      <select class="form-control">
+                      <select class="form-control" v-model="factura.venta_interna">
                         <option value="1">Venta Interna</option>
                         <option value="2">Anticipo o Deduccion de Anticipo en venta interna</option>
                         <option value="3">Exportacion</option>
@@ -228,7 +229,7 @@
           </div>
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="bg-light">
-              <input type="email" class="form-control text-right" placeholder="0.00">
+              <input type="email" class="form-control text-right" v-model="factura.total_gravadas" placeholder="0.00">
             </div>
           </div>
         </div>
@@ -245,7 +246,7 @@
           </div>
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="bg-light">
-              <input type="email" class="form-control text-right" placeholder="0.00">
+              <input type="email" class="form-control text-right" v-model="factura.total_igv" placeholder="0.00">
             </div>
           </div>
         </div>
@@ -269,7 +270,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" v-if="factura.id ==''"><i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-primary" v-if="factura.id ==''" @click="facturaSave"><i class="fa fa-save"></i> Guardar</button>
         <button type="button" class="btn btn-primary" v-else><i class="fa fa-edit"></i> Editar</button>
       </div>
     </div>

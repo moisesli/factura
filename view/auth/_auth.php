@@ -39,8 +39,12 @@ if ($f == 'register') {
 }
 
 if ($f == 'login'){
-    $cantidad = $Api->countUsuarios($post['login']['email'], $post['login']['password']);
-    $Api->logear(1);
+    $auth = new Auth;
+    $email = $post['login']['email'];
+    $password = $post['login']['password'];
+    echo $auth->login($email,$password);
+    // $cantidad = $Api->countUsuarios($post['login']['email'], $post['login']['password']);
+    // $Api->logear(1);
 }
 
 class Api {
@@ -60,6 +64,8 @@ class Api {
         }
     }
 }
+
+include_once "./_class_auth.php";
 
 // class User {
 //     protected $loggedIn = false;

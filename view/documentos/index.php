@@ -1,4 +1,5 @@
 <?php include "../layout/header.php" ?>
+<?php include_once "../auth/_che_loggedin.php" ?>
 
 <div class="wrapper">
 

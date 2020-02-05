@@ -29,6 +29,14 @@
 <div class="login-box pt-lg-5" id="app">
     <div class="login-logo">
         <a href="../../index2.html"><b>Iniciar </b>Session {{nombre}}</a>
+        <?php 
+          session_start(); 
+          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+              echo "Welcome to the member's area, " . $_SESSION['username'] . "!";
+          } else {
+              echo "Please log in first to see this page.";
+          }
+        ?>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -101,8 +109,7 @@
         },
         methods: {
             logear: function () {
-                axios.post('_auth.php?f=login', {login: this.login})
-                    .then(res => {
+                axios.post('_auth.php?f=login', {login: this.login}).then(res => {
                         if (res.data == 'ok'){
                             Swal.fire({
                                 title: 'Iniciar Session!',
