@@ -138,7 +138,7 @@
           <img src="/plugins/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Abraham Moises L.</a>
+          <a href="#" class="d-block"><?php echo $_SESSION['nombres'] ?></a>
         </div>
       </div>
 
@@ -186,7 +186,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Agregar Usuarios</p>
                 </a>
-              </li>              
+              </li>
             </ul>
           </li>
 

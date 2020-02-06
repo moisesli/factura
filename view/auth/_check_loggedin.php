@@ -1,8 +1,11 @@
-<?php 
+<?php
 
 include_once "_class_auth.php";
 $auth = new Auth;
-// echo $auth->loggedin();
-echo 'moises';
-    
+if (!$auth->loggedin()){
+  header("Location: /view/auth/login.php");
+}
+
+//echo 'moises';
+
 ?>
