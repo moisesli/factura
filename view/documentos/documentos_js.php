@@ -40,17 +40,39 @@
       }
     },
     methods: {
-      facturaSave: function(){
+      facturaSave: function() {
         console.log(this.factura)
+        axios.post().then(res => {
+          if (res.data == 'ok') {
+            Swal.fire({
+              title: 'Factura Guardada!',
+              text: 'correctamente!!!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            }).then((result) => {
+              $('#facturaModal').modal('hide')
+            });
+          } else {
+            Swal.fire({
+              title: 'Error No se Guardo!',
+              text: 'Corregir!!!',
+              icon: 'error',
+              confirmButtonText: 'Continuar'
+            }).then((result) => {
+              $('#facturaModal').modal('hide')
+            });
+          }
+        })
+
       },
       facturaItemsSumTotal: function() {
-        
+
         // Sumatorias
-        
+
         let tempSumGravadas = 0.00;
         let tempSumIgv = 0.00;
         let tempSumTotal = 0.00;
-        
+
         this.factura.items.forEach(item => {
           // console.log(typeof tempSumGravadas + typeof item.subtotal);
           tempSumGravadas = parseFloat(tempSumGravadas) + parseFloat(item.subtotal);
@@ -63,7 +85,7 @@
         this.factura.total_gravadas = tempSumGravadas;
         this.factura.total_igv = tempSumIgv;
         this.factura.total_total = tempSumTotal;
-        
+
       },
       facturaItemNombreChange: function(index, item, text) {
         // console.log(text);

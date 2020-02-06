@@ -60,4 +60,8 @@ class documentos
             return json_encode($productos);
         }
     }
+
+    public function facturaSaveNew(){
+        
+    }
 }
