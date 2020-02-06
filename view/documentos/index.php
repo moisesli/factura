@@ -1,4 +1,5 @@
 <?php include "../layout/header.php" ?>
+<?php include_once "../auth/_check_loggedin.php" ?>
 
 <div class="wrapper">
 
@@ -75,7 +76,7 @@
                 <table class="table table-hover">
                   <thead>
                   <tr>
-                    
+
                     <th>Tipo</th>
                     <th>Fecha</th>
                     <th>Serie</th>

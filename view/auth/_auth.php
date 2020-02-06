@@ -1,6 +1,7 @@
 <?php
 
 include_once ("../../plugins/bd/conn.php");
+include_once "./_class_auth.php";
 //header('Content-Type: application/json');
 $post = json_decode(file_get_contents("php://input"),true);
 
@@ -10,12 +11,12 @@ $Api = new Api;
 if ($f == 'register') {
 
     /* Comprueba */
-    $cantidad = "select count(*) cantidad from empresas 
+    $cantidad = "select count(*) cantidad from empresas
             where ruc='{$post['register']['ruc']}'";
     $cantidad = $conn->query($cantidad)->fetch_array(MYSQLI_ASSOC);
     $cantidad = $cantidad['cantidad'];
 
-    $cantidadUsers = "select count(*) cantidad from usuarios 
+    $cantidadUsers = "select count(*) cantidad from usuarios
             where email='{$post['register']['email']}' and password='{$post['register']['password']}'";
     $cantidadUsers = $conn->query($cantidadUsers)->fetch_array(MYSQLI_ASSOC);
     $cantidadUsers = $cantidadUsers['cantidad'];
@@ -27,7 +28,7 @@ if ($f == 'register') {
             ruc='{$post['register']['ruc']}',
             razon='{$post['register']['razon_social']}'";
         $conn->query($sql);
-        $sqlInsertUsuario = "insert into usuarios set 
+        $sqlInsertUsuario = "insert into usuarios set
             email='{$post['register']['email']}',
             password='{$post['register']['password']}'";
         $conn->query($sqlInsertUsuario);
@@ -39,8 +40,12 @@ if ($f == 'register') {
 }
 
 if ($f == 'login'){
-    $cantidad = $Api->countUsuarios($post['login']['email'], $post['login']['password']);
-    $Api->logear(1);
+    $auth = new Auth;
+    $email = $post['login']['email'];
+    $password = $post['login']['password'];
+    echo $auth->login($email,$password);
+    // $cantidad = $Api->countUsuarios($post['login']['email'], $post['login']['password']);
+    // $Api->logear(1);
 }
 
 class Api {
@@ -60,6 +65,8 @@ class Api {
         }
     }
 }
+
+
 
 // class User {
 //     protected $loggedIn = false;
