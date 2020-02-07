@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
         <!--{{ $data.factura }}-->
         <!-- Datos Generales-->
         <div class="d-inline-flex" style="width: 100%;">
@@ -56,16 +56,16 @@
                     <div class="form-group">
                       <small class="form-text text-muted">Serie </small>
                       <select class="form-control" v-model="factura.serie">
-                        <option value="1">F001</option>
-                        <option value="2">F002</option>
-                        <option value="3">F003</option>
+                        <option value="F001">F001</option>
+                        <option value="F002">F002</option>
+                        <option value="F003">F003</option>
                       </select>
                     </div>
 
                     <!-- Fecha Emision -->
                     <div class="form-group">
                       <small class="form-text text-muted">Fecha Emision </small>
-                      <input type="date" class="form-control" v-model="factura.fecha_emision" placeholder="Password">
+                      <input type="date" class="form-control" v-model="factura.fecha_emision">
                     </div>
 
                     <!-- Venta Interna -->

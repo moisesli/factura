@@ -66,7 +66,14 @@ class documentos
   public function facturaSaveNew()
   {
     global $conn, $post;
-    $facturaSqlSaveNew = "insert into docs set tipo = 'FF', serie = 'F001'";
+    $facturaSqlSaveNew = "insert into docs set
+                            ruc = '{$post['factura']['ruc']}',
+                            razon = '{$post['factura']['razon']}',
+                            direccion = '{$post['factura']['direccion']}',
+                            serie = '{$post['factura']['serie']}',
+                            fecha_emision = '". date("Y-m-d", strtotime($post['factura']['fecha_emision'])) ."',
+                            venta_interna = '{$post['factura']['venta_interna']}'
+                            ";
     $conn->query($facturaSqlSaveNew);
     return 'ok';
   }

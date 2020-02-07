@@ -43,27 +43,27 @@
       facturaSave: function() {
         console.log(this.factura)
 
-        // axios.post('./_documentos.php?f=factura_save_new', { factura: this.factura }).then(res => {
-        //   if (res.data == 'ok') {
-        //     Swal.fire({
-        //       title: 'Factura Guardada!',
-        //       text: 'correctamente!!!',
-        //       icon: 'success',
-        //       confirmButtonText: 'Aceptar'
-        //     }).then((result) => {
-        //       $('#facturaModal').modal('hide')
-        //     });
-        //   } else {
-        //     Swal.fire({
-        //       title: 'Error No se Guardo!',
-        //       text: 'Corregir!!!',
-        //       icon: 'error',
-        //       confirmButtonText: 'Continuar'
-        //     }).then((result) => {
-        //       $('#facturaModal').modal('hide')
-        //     });
-        //   }
-        // })
+        axios.post('./_documentos.php?f=factura_save_new', { factura: this.factura }).then(res => {
+          if (res.data == 'ok') {
+            Swal.fire({
+              title: 'Factura Guardada!',
+              text: 'correctamente!!!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            }).then((result) => {
+              $('#facturaModal').modal('hide')
+            });
+          } else {
+            Swal.fire({
+              title: 'Error No se Guardo!',
+              text: 'Corregir!!!',
+              icon: 'error',
+              confirmButtonText: 'Continuar'
+            }).then((result) => {
+              $('#facturaModal').modal('hide')
+            });
+          }
+        })
 
       },
       facturaItemsSumTotal: function() {
