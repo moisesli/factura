@@ -3,9 +3,11 @@
     el: '#app',
     data: {
       nombre: 'moises',
+      docs: [],
       productosList: [],
       factura: {
         id: '',
+        tipo: 'factura',
         ruc: '',
         razon: '',
         direccion: '',
@@ -18,6 +20,7 @@
         items: [{
           productos: [],
           nombre: '',
+          producto_id: '',
           unidad: '',
           cantidad: null,
           precio_con_igv: null,
@@ -40,10 +43,17 @@
       }
     },
     methods: {
+      facturaList: function(){
+        axios.post('./_documentos.php?f=factura_list').then(res => {
+          this.docs = res.data;
+          console.log(res.data)
+        })
+      },
       facturaSave: function() {
         console.log(this.factura)
 
         axios.post('./_documentos.php?f=factura_save_new', { factura: this.factura }).then(res => {
+          console.log(res.data)
           if (res.data == 'ok') {
             Swal.fire({
               title: 'Factura Guardada!',
@@ -52,6 +62,7 @@
               confirmButtonText: 'Aceptar'
             }).then((result) => {
               $('#facturaModal').modal('hide')
+              this.facturaList();
             });
           } else {
             Swal.fire({
@@ -97,10 +108,13 @@
           // console.log(this.factura.items[index].productos)
           if (res.data[0].lista == 'unoIgual') {
             this.factura.items[index].productos = null;
+            this.factura.items[index].nombre = res.data[0].nombre;
+            this.factura.items[index].producto_id = res.data[0].id;
             this.factura.items[index].cantidad = 1;
+            this.factura.items[index].precio_sin_igv = res.data[0].precio_sin_igv;
             this.factura.items[index].precio_con_igv = res.data[0].precio_con_igv;
             this.factura.items[index].igv = res.data[0].igv;
-            this.factura.items[index].precio_sin_igv = res.data[0].precio_sin_igv;
+            this.factura.items[index].descuento = res.data[0].descuento;
             this.factura.items[index].subtotal = res.data[0].subtotal;
             this.factura.items[index].total = res.data[0].total;
             this.facturaItemsSumTotal();
@@ -141,6 +155,7 @@
       facturaOpenModal: function(action) {
         if (action == 'nuevo') {
           this.factura.id = '';
+          this.factura.tipo = 'factura';
           this.factura.ruc = '';
           this.factura.razon = '';
           this.factura.direccion = '';
@@ -153,12 +168,13 @@
           this.factura.items = [{
             productos: [],
             nombre: '',
+            producto_id: null,
             unidad: '',
             cantidad: null,
             precio_con_igv: null,
             precio_sin_igv: null,
             igv: null,
-            tipo_igv: '0',
+            tipo_igv: '1',
             descuento: null,
             subtotal: null,
             total: null
@@ -171,6 +187,7 @@
       facturaAddLine: function() {
         this.factura.items.push({
           nombre: '',
+          producto_id: null,
           unidad: '',
           cantidad: 0,
           precio_con_igv: 0,
@@ -206,6 +223,9 @@
         }
         $('#debitoModal').modal('show')
       }
+    },
+    created() {
+      this.facturaList();
     }
   });
 </script>

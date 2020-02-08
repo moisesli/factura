@@ -76,7 +76,6 @@
                 <table class="table table-hover">
                   <thead>
                   <tr>
-
                     <th>Tipo</th>
                     <th>Fecha</th>
                     <th>Serie</th>
@@ -88,10 +87,10 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>Factura</td>
-                    <td>20-01-2019</td>
-                    <td>F001</td>
+                  <tr v-for="(doc,index) in docs">
+                    <td>{{doc.tipo}}</td>
+                    <td>{{doc.fecha_emision}}</td>
+                    <td>{{doc.serie}}</td>
                     <td>00004578</td>
                     <td><span class="tag tag-success">1042516253</span></td>
                     <td>Abraham Moises Linares Oscco</td>
