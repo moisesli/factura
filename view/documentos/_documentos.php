@@ -13,10 +13,23 @@ if ($f == 'searchproductos') {
   echo $documento->facturaSaveNew();
 }elseif ($f == 'factura_list'){
   echo $documento->facturaList();
+}elseif ($f == 'get_series'){
+  echo $documento->getSeries($post['tipo']);
 }
 
 class documentos
 {
+
+  public function getSeries($tipo){
+    global $conn, $post;
+    session_start();
+    $sql_series = "select * from config_docs_tipos
+                            where empresa_id = {$_SESSION['empresa_id']} and config_const_doc_id = {$tipo}";
+    $sql_series = $conn->query($sql_series)->fetch_all(MYSQLI_ASSOC);
+    return json_encode($sql_series);
+  }
+
+
   public function facturaList(){
     global $conn, $post;
     $facturasqlList = "select * from docs";
@@ -79,12 +92,19 @@ class documentos
   {
     global $conn, $post;
 
+    session_start();
+
     // Si es nuevo
     if ($post['factura']['id'] == ""){
+
+      $sql_current_numero = "select (numero+1) numero from config_docs_tipos where empresa_id={$_SESSION['empresa_id']} and serie='F001'";
+      $sql_current_numero = $conn->query($sql_current_numero)->fetch_array(MYSQLI_ASSOC);
+      $sql_current_numero = $sql_current_numero['numero'];
 
       // Handles Headers
       $facturaSqlSaveNew = "insert into docs set
                             ruc = '{$post['factura']['ruc']}',
+                            numero = {$sql_current_numero},
                             tipo = '{$post['factura']['tipo']}',
                             razon = '{$post['factura']['razon']}',
                             direccion = '{$post['factura']['direccion']}',
@@ -97,6 +117,10 @@ class documentos
                             ";
       $conn->query($facturaSqlSaveNew);
       $doc_id = $conn->insert_id;
+
+      // Update Factura Numero
+      $sqp_update_numero = "update config_docs_tipos set numero = {$sql_current_numero} where empresa_id={$_SESSION['empresa_id']} and serie='F001'";
+      $conn->query($sqp_update_numero);
 
       // Heandles Items
       foreach ($post['factura']['items'] as $item){

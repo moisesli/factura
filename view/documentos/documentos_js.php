@@ -5,6 +5,12 @@
       nombre: 'moises',
       docs: [],
       productosList: [],
+      factura_series: [],
+      factura_credito_series: [],
+      factura_debito_series: [],
+      boleta_series: [],
+      boleta_credito_series: [],
+      boleta_debito_series: [],
       factura: {
         id: '',
         tipo: 'factura',
@@ -43,17 +49,47 @@
       }
     },
     methods: {
-      facturaList: function(){
-        axios.post('./_documentos.php?f=factura_list').then(res => {
-          this.docs = res.data;
+      facturaSeries: function(){
+        axios.post('./_documentos.php?f=get_series', { tipo: 1 }).then(res => {
+          // console.log(res.data)
+        })
+      },
+      facturaCreditoSeries: function(){
+        axios.post('./_documentos.php?f=get_series', { tipo: 2 }).then(res => {
           console.log(res.data)
         })
       },
+      facturaDebitoSeries: function(){
+        axios.post('./_documentos.php?f=get_series', { tipo: 3 }).then(res => {
+          // console.log(res.data)
+        })
+      },
+      boletaSeries: function(){
+        axios.post('./_documentos.php?f=get_series', { tipo: 4 }).then(res => {
+          // console.log(res.data)
+        })
+      },
+      boletaCreditoSeries: function(){
+        axios.post('./_documentos.php?f=get_series', { tipo: 5 }).then(res => {
+          // console.log(res.data)
+        })
+      },
+      boletaDebitoSeries: function(){
+        axios.post('./_documentos.php?f=get_series', { tipo: 6 }).then(res => {
+          // console.log(res.data)
+        })
+      },
+      facturaList: function(){
+        axios.post('./_documentos.php?f=factura_list').then(res => {
+          this.docs = res.data;
+          // console.log(res.data)
+        })
+      },
       facturaSave: function() {
-        console.log(this.factura)
+        // console.log(this.factura)
 
         axios.post('./_documentos.php?f=factura_save_new', { factura: this.factura }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data == 'ok') {
             Swal.fire({
               title: 'Factura Guardada!',
@@ -226,6 +262,12 @@
     },
     created() {
       this.facturaList();
+      this.facturaSeries();
+      this.facturaCreditoSeries();
+      this.facturaDebitoSeries();
+      this.boletaSeries();
+      this.boletaCreditoSeries();
+      this.boletaDebitoSeries();
     }
   });
 </script>

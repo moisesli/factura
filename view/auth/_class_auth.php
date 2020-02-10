@@ -21,6 +21,8 @@ class Auth
       $_SESSION['apellidos'] = $datosUser['apellidos'];
       $_SESSION['ruc'] = $datosUser['ruc'];
       $_SESSION['razon'] = $datosUser['razon'];
+      $_SESSION['empresa_id'] = $datosUser['empresa_id'];
+
       return 'ok';
       // return $cantidadUsers;
 
