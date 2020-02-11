@@ -56,9 +56,7 @@
                     <div class="form-group">
                       <small class="form-text text-muted">Serie </small>
                       <select class="form-control" v-model="factura.serie">
-                        <option value="F001">F001</option>
-                        <option value="F002">F002</option>
-                        <option value="F003">F003</option>
+                        <option v-for="item in factura_series">{{ item.serie }}</option>
                       </select>
                     </div>
 

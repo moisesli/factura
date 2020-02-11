@@ -6,11 +6,17 @@
       docs: [],
       productosList: [],
       factura_series: [],
+      factura_default: null,
       factura_credito_series: [],
+      factura_credito_default: null,
       factura_debito_series: [],
+      factura_debito_default: null,
       boleta_series: [],
+      boleta_default: null,
       boleta_credito_series: [],
+      boleta_credito_default: null,
       boleta_debito_series: [],
+      boleta_debito_default: null,
       factura: {
         id: '',
         tipo: 'factura',
@@ -51,31 +57,62 @@
     methods: {
       facturaSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 1 }).then(res => {
-          // console.log(res.data)
+          this.factura_series = res.data;
+          res.data.forEach(item => {
+            if (item.defecto == '1'){
+              this.factura_default = item.serie;
+            }
+          })
+          console.log(this.factura_series)
         })
       },
       facturaCreditoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 2 }).then(res => {
-          console.log(res.data)
+          res.data.forEach(item => {
+            if (item.defecto == '1'){
+              this.factura_credito_default = item.serie;
+            }
+          })
+          // console.log(res.data)
         })
       },
       facturaDebitoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 3 }).then(res => {
+          res.data.forEach(item => {
+            if (item.defecto == '1'){
+              this.factura_debito_default = item.serie;
+            }
+          })
           // console.log(res.data)
         })
       },
       boletaSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 4 }).then(res => {
+          res.data.forEach(item => {
+            if (item.defecto == '1'){
+              this.boleta_default = item.serie;
+            }
+          })
           // console.log(res.data)
         })
       },
       boletaCreditoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 5 }).then(res => {
+          res.data.forEach(item => {
+            if (item.defecto == '1'){
+              this.boleta_credito_default = item.serie;
+            }
+          })
           // console.log(res.data)
         })
       },
       boletaDebitoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 6 }).then(res => {
+          res.data.forEach(item => {
+            if (item.defecto == '1'){
+              this.boleta_debito_default = item.serie;
+            }
+          })
           // console.log(res.data)
         })
       },
@@ -195,9 +232,9 @@
           this.factura.ruc = '';
           this.factura.razon = '';
           this.factura.direccion = '';
-          this.factura.serie = '';
-          this.factura.fecha_emision = '';
-          this.factura.venta_interna = '';
+          this.factura.serie = this.factura_default;
+          this.factura.fecha_emision = '<?php echo date('Y-m-d') ?>';
+          this.factura.venta_interna = '1';
           this.factura.total_gravadas = null;
           this.factura.total_igv = null;
           this.factura.total_total = null;
