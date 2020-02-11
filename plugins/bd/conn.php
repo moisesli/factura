@@ -1,10 +1,10 @@
 <?php
 
-$conn = new mysqli('localhost', 'root', '', 'factura');
+$conn = new mysqli('localhost', 'root', 'moiseslinar3s', 'factura');
 
-// if ($_SERVER['HTTP_HOST'] == 'monases2.com'){
-//   $conn = new mysqli('localhost', 'root', 'moiseslinar3s', 'monases');
-// }else {
+// if ($_SERVER['HTTP_HOST'] == 'monases2.com'){alhost', 'root', 'moiseslinar3s', 'monases');
+//// }else {
+//   $conn = new mysqli('loc
 //   $conn = new mysqli('52.13.229.176', 'root', 'moiseslinar3s', 'monases');
 // }
 

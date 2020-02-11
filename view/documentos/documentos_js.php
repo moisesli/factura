@@ -63,7 +63,7 @@
               this.factura_default = item.serie;
             }
           })
-          console.log(this.factura_series)
+          // console.log(this.factura_series)
         })
       },
       facturaCreditoSeries: function(){
@@ -119,7 +119,7 @@
       facturaList: function(){
         axios.post('./_documentos.php?f=factura_list').then(res => {
           this.docs = res.data;
-          // console.log(res.data)
+          console.log(res.data)
         })
       },
       facturaSave: function() {

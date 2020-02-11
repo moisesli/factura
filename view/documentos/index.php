@@ -91,10 +91,10 @@
                     <td>{{doc.tipo}}</td>
                     <td>{{doc.fecha_emision}}</td>
                     <td>{{doc.serie}}</td>
-                    <td>00004578</td>
-                    <td><span class="tag tag-success">1042516253</span></td>
-                    <td>Abraham Moises Linares Oscco</td>
-                    <td>845.01</td>
+                    <td>{{doc.numero}}</td>
+                    <td>{{doc.ruc}}</td>
+                    <td>{{doc.razon}}</td>
+                    <td>{{doc.total_total}}</td>
                     <td>
                       <div class="btn-group btn-group-sm">
                         <button type="button" class="btn btn-default">
