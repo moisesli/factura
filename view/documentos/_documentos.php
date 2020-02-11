@@ -32,9 +32,17 @@ class documentos
 
   public function facturaList(){
     global $conn, $post;
+
+    // Facturas
     $facturasqlList = "select * from docs";
     $facturasqlList = $conn->query($facturasqlList)->fetch_all(MYSQLI_ASSOC);
+
     foreach ($facturasqlList as $index => $doc){
+
+      // Items
+      $sql_items = "select * from docs_items where doc_id = {$doc['id']}";
+      $sql_items = $conn->query($sql_items)->fetch_all(MYSQLI_ASSOC);
+      $facturasqlList[$index]['items'] = $sql_items;
 
     }
     return json_encode($facturasqlList);

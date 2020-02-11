@@ -225,7 +225,7 @@
         this.facturaItemsSumTotal();
         // console.log(item)
       },
-      facturaOpenModal: function(action) {
+      facturaOpenModal: function(action, factura) {
         if (action == 'nuevo') {
           this.factura.id = '';
           this.factura.tipo = 'factura';
@@ -253,7 +253,19 @@
             total: null
           }];
         } else if (action == 'editar') {
-
+          this.factura.id = factura.id;
+          this.factura.tipo = 'factura';
+          this.factura.ruc = factura.ruc;
+          this.factura.razon = factura.razon;
+          this.factura.direccion = factura.direccion;
+          this.factura.serie = factura.serie;
+          this.factura.fecha_emision = factura.fecha_emision;
+          this.factura.venta_interna = factura.venta_interna;
+          this.factura.total_gravadas = factura.total_gravadas;
+          this.factura.total_igv = factura.total_igv;
+          this.factura.total_total = factura.total_total;
+          this.factura.items = factura.items;
+          console.log(factura)
         }
         $('#facturaModal').modal('show')
       },
