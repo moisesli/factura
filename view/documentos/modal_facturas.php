@@ -269,7 +269,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" v-if="factura.id ==''" @click="facturaSave"><i class="fa fa-save"></i> Guardar</button>
-        <button type="button" class="btn btn-primary" v-else><i class="fa fa-edit"></i> Editar</button>
+        <button type="button" class="btn btn-primary" v-else @click="facturaSave"><i class="fa fa-edit"></i> Editar</button>
       </div>
     </div>
   </div>

@@ -149,7 +149,53 @@ class documentos
       }
 
     // Si es editar
-    }else{
+    }
+    else{
+      $sql_factura_update = "update docs set
+                             ruc = '{$post['factura']['ruc']}',
+                             tipo = '{$post['factura']['tipo']}',
+                             razon = '{$post['factura']['razon']}',
+                             direccion = '{$post['factura']['direccion']}',
+                             serie = '{$post['factura']['serie']}',
+                             fecha_emision = '". date("Y-m-d", strtotime($post['factura']['fecha_emision'])) ."',
+                             venta_interna = '{$post['factura']['venta_interna']}',
+                             total_gravadas = {$post['factura']['total_gravadas']},
+                             total_igv = {$post['factura']['total_igv']},
+                             total_total = {$post['factura']['total_total']}
+                             where id = {$post['factura']['id']}";
+      $conn->query($sql_factura_update);
+
+      foreach ($post['factura']['items'] as $item){
+        if ($item['id'] != ''){
+          $facturaSqlSaveItems = "update docs_items set
+                                  nombre = '{$item['nombre']}',
+                                  producto_id = '{$item['producto_id']}',
+                                  cantidad = {$item['cantidad']},
+                                  precio_sin_igv = {$item['precio_sin_igv']},
+                                  precio_con_igv = {$item['precio_con_igv']},
+                                  igv = {$item['igv']},
+                                  descuento = {$item['descuento']},
+                                  subtotal = {$item['subtotal']},
+                                  tipo_igv = {$item['tipo_igv']},
+                                  total = {$item['total']}
+                                  where id = {$item['id']}";
+        }else {
+          $facturaSqlSaveItems = "insert into docs_items set
+                                nombre = '{$item['nombre']}',
+                                producto_id = '{$item['producto_id']}',
+                                cantidad = {$item['cantidad']},
+                                precio_sin_igv = {$item['precio_sin_igv']},
+                                precio_con_igv = {$item['precio_con_igv']},
+                                igv = {$item['igv']},
+                                descuento = {$item['descuento']},
+                                subtotal = {$item['subtotal']},
+                                tipo_igv = {$item['tipo_igv']},
+                                total = {$item['total']},
+                                doc_id = {$post['factura']['id']}
+                            ";
+        }
+        $conn->query($facturaSqlSaveItems);
+      }
 
     }
 

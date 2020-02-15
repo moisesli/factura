@@ -30,6 +30,7 @@
         total_igv: null,
         total_total: null,
         items: [{
+          id: '',
           productos: [],
           nombre: '',
           producto_id: '',
@@ -239,6 +240,7 @@
           this.factura.total_igv = null;
           this.factura.total_total = null;
           this.factura.items = [{
+            id: '',
             productos: [],
             nombre: '',
             producto_id: null,
@@ -271,6 +273,7 @@
       },
       facturaAddLine: function() {
         this.factura.items.push({
+          id: '',
           nombre: '',
           producto_id: null,
           unidad: '',
