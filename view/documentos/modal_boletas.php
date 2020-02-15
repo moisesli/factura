@@ -198,14 +198,14 @@
           <!-- Cantidad -->
           <div style="width: 12.5%; box-sizing: border-box;">
             <div class="pr-2 pl-2 bg-light">
-              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="facturaItemCantidadChange(index, item)" placeholder="0">
+              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="boletaItemCantidadChange(index, item)" placeholder="0">
             </div>
           </div>
 
           <!-- Precio -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">
-              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="facturaItemPrecioChange(index, item)" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="boletaItemPrecioChange(index, item)" placeholder="0.00">
             </div>
           </div>
 

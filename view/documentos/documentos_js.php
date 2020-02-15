@@ -269,6 +269,16 @@
         });
 
       },
+      boletaItemCantidadChange: function(i, item) {
+        // console.log(typeof i + ' = ' + i)
+        if (this.boleta.items[i].cantidad != 0) {
+          // los calculos se hacen en base a los precios unitarios con igv y sin igv
+          this.boleta.items[i].subtotal = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_sin_igv).toFixed(2);
+          this.boleta.items[i].total = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_con_igv).toFixed(2);
+          this.boleta.items[i].igv = (this.boleta.items[i].total - this.boleta.items[i].subtotal).toFixed(2);
+          this.facturaItemsSumTotal();
+        }
+      },
       facturaItemCantidadChange: function(i, item) {
         // console.log(typeof i + ' = ' + i)
         if (this.factura.items[i].cantidad != 0) {
@@ -278,6 +288,14 @@
           this.factura.items[i].igv = (this.factura.items[i].total - this.factura.items[i].subtotal).toFixed(2);
           this.facturaItemsSumTotal();
         }
+      },
+      boletaItemPrecioChange: function(i, item) {
+        this.boleta.items[i].precio_sin_igv = this.boleta.items[i].precio_con_igv - this.boleta.items[i].precio_con_igv * 0.18;
+        this.boleta.items[i].subtotal = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_sin_igv).toFixed(2);
+        this.boleta.items[i].total = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_con_igv).toFixed(2);
+        this.boleta.items[i].igv = (this.boleta.items[i].total - this.boleta.items[i].subtotal).toFixed(2);
+        this.facturaItemsSumTotal();
+        // console.log(item)
       },
       facturaItemPrecioChange: function(i, item) {
         this.factura.items[i].precio_sin_igv = this.factura.items[i].precio_con_igv - this.factura.items[i].precio_con_igv * 0.18;
