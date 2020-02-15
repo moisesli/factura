@@ -17,6 +17,33 @@
       boleta_credito_default: null,
       boleta_debito_series: [],
       boleta_debito_default: null,
+      boleta: {
+        id: '',
+        tipo: 'boleta',
+        ruc: '',
+        razon: '',
+        direccion: '',
+        serie: '',
+        fecha_emision: '',
+        venta_interna: '',
+        total_gravadas: '',
+        total_igv: '',
+        total_total: '',
+        items: [{
+          productos: [],
+          nombre: '',
+          producto_id: '',
+          unidad: '',
+          cantidad: null,
+          precio_con_igv: null,
+          precio_sin_igv: null,
+          igv: null,
+          tipo_igv: '0',
+          descuento: null,
+          subtotal: null,
+          total: null
+        }]
+      },
       factura: {
         id: '',
         tipo: 'factura',
@@ -44,9 +71,6 @@
           total: null
         }]
       },
-      boleta: {
-        id: ''
-      },
       nota: {
         id: ''
       },
@@ -68,6 +92,7 @@
       },
       facturaCreditoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 2 }).then(res => {
+          this.factura_credito_series = res.data;
           res.data.forEach(item => {
             if (item.defecto == '1'){
               this.factura_credito_default = item.serie;
@@ -78,6 +103,7 @@
       },
       facturaDebitoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 3 }).then(res => {
+          this.factura_debito_series = res.data;
           res.data.forEach(item => {
             if (item.defecto == '1'){
               this.factura_debito_default = item.serie;
@@ -88,16 +114,51 @@
       },
       boletaSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 4 }).then(res => {
+          this.boleta_series = res.data;
           res.data.forEach(item => {
             if (item.defecto == '1'){
               this.boleta_default = item.serie;
             }
           })
-          // console.log(res.data)
+          // console.log(this.boleta_default)
         })
+      },
+      boletaItemNombreChange: function(index, item, text) {
+        // console.log(text);
+        axios.post('./_documentos.php?f=searchproductos', { text: text }).then(res => {
+          // console.log(this.factura.items[index].productos)
+          if (res.data[0].lista == 'unoIgual') {
+            this.boleta.items[index].productos = null;
+            this.boleta.items[index].nombre = res.data[0].nombre;
+            this.boleta.items[index].producto_id = res.data[0].id;
+            this.boleta.items[index].cantidad = 1;
+            this.boleta.items[index].precio_sin_igv = res.data[0].precio_sin_igv;
+            this.boleta.items[index].precio_con_igv = res.data[0].precio_con_igv;
+            this.boleta.items[index].igv = res.data[0].igv;
+            this.boleta.items[index].descuento = res.data[0].descuento;
+            this.boleta.items[index].subtotal = res.data[0].subtotal;
+            this.boleta.items[index].total = res.data[0].total;
+            // this.facturaItemsSumTotal();
+          } else if (res.data[0].lista == 'ceroNinguno') {
+            this.boleta.items[index].productos = null;
+            this.boleta.items[index].cantidad = null;
+            this.boleta.items[index].precio_con_igv = null;
+            this.boleta.items[index].subtotal = null;
+            this.boleta.items[index].total = null;
+          } else {
+            this.boleta.items[index].productos = res.data;
+            this.boleta.items[index].cantidad = null;
+            this.boleta.items[index].precio_con_igv = null;
+            this.boleta.items[index].subtotal = null;
+            this.boleta.items[index].total = null;
+            console.log(this.boleta.items[index].productos)
+          }
+        });
+
       },
       boletaCreditoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 5 }).then(res => {
+          this.boleta_credito_series = res.data;
           res.data.forEach(item => {
             if (item.defecto == '1'){
               this.boleta_credito_default = item.serie;
@@ -108,6 +169,7 @@
       },
       boletaDebitoSeries: function(){
         axios.post('./_documentos.php?f=get_series', { tipo: 6 }).then(res => {
+          this.boleta_debito_series = res.data;
           res.data.forEach(item => {
             if (item.defecto == '1'){
               this.boleta_debito_default = item.serie;
@@ -119,7 +181,7 @@
       facturaList: function(){
         axios.post('./_documentos.php?f=factura_list').then(res => {
           this.docs = res.data;
-          console.log(res.data)
+          // console.log(res.data)
         })
       },
       facturaSave: function() {
@@ -225,6 +287,39 @@
         this.facturaItemsSumTotal();
         // console.log(item)
       },
+      boletaOpenModal: function(action, boleta) {
+        if (action == 'nuevo') {
+          this.boleta.id = '';
+          this.boleta.ruc = '';
+          this.boleta.tipo = 'factura';
+          this.boleta.razon = '';
+          this.boleta.direccion = '';
+          this.boleta.serie = this.boleta_default;
+          this.boleta.fecha_emision = '<?php echo date('Y-m-d') ?>';
+          this.boleta.venta_interna = '1';
+          this.boleta.total_gravadas = null;
+          this.boleta.total_igv = null;
+          this.boleta.total_total = null;
+          this.boleta.items = [{
+            productos: [],
+            nombre: '',
+            producto_id: null,
+            unidad: '',
+            cantidad: null,
+            precio_con_igv: null,
+            precio_sin_igv: null,
+            igv: null,
+            tipo_igv: '1',
+            descuento: null,
+            subtotal: null,
+            total: null
+          }];
+        } else if (action == 'editar') {
+
+        }
+        $('#boletaModal').modal('show')
+        console.log(this.boleta)
+      },
       facturaOpenModal: function(action, factura) {
         if (action == 'nuevo') {
           this.factura.id = '';
@@ -265,9 +360,24 @@
           this.factura.total_igv = factura.total_igv;
           this.factura.total_total = factura.total_total;
           this.factura.items = factura.items;
-          console.log(factura)
+          // console.log(factura)
         }
         $('#facturaModal').modal('show')
+      },
+      boletaAddLine: function() {
+        this.boleta.items.push({
+          nombre: '',
+          producto_id: null,
+          unidad: '',
+          cantidad: 0,
+          precio_con_igv: 0,
+          precio_sin_igv: 0,
+          tipo_igv: '0',
+          igv: 0,
+          descuento: 0,
+          subtotal: 0,
+          total: 0
+        });
       },
       facturaAddLine: function() {
         this.factura.items.push({
@@ -283,14 +393,6 @@
           subtotal: 0,
           total: 0
         });
-      },
-      boletaOpenModal: function(action) {
-        if (action == 'nuevo') {
-          this.boleta.id = '';
-        } else if (action == 'editar') {
-
-        }
-        $('#boletaModal').modal('show')
       },
       creditoOpenModal: function(action) {
         if (action == 'nuevo') {
