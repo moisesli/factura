@@ -141,7 +141,7 @@
         <!-- Items -->
         <div class="d-inline-flex mb-1" style="width: 100%;" v-for="(item, index) in boleta.items">
 
-          <!-- Producto -->
+          <!-- Producto 37% -->
           <div style="width: 37%; box-sizing: border-box;">
             <div class="pr-2 bg-light">
               <input type="search" class="form-control" :list="'boleta'+index" v-model="item.nombre" @input="boletaItemNombreChange(index,item,item.nombre)" autocomplete="off">
@@ -151,7 +151,7 @@
             </div>
           </div>
 
-          <!-- Opciones -->
+          <!-- Opciones 5.5% -->
           <div style="width: 5.5%; box-sizing: content-box;">
             <div class="bg-light">
               <div class="dropdown">
@@ -195,28 +195,28 @@
             </div>
           </div>
 
-          <!-- Cantidad -->
+          <!-- Cantidad 12.5% -->
           <div style="width: 12.5%; box-sizing: border-box;">
             <div class="pr-2 pl-2 bg-light">
               <input type="text" class="form-control text-right" v-model="item.cantidad" @input="boletaItemCantidadChange(index, item)" placeholder="0">
             </div>
           </div>
 
-          <!-- Precio -->
+          <!-- Precio 15% -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">
               <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="boletaItemPrecioChange(index, item)" placeholder="0.00">
             </div>
           </div>
 
-          <!-- Subtotal -->
+          <!-- Subtotal 15% -->
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">
               <input type="text" class="form-control text-right" v-model="item.subtotal" placeholder="0.00" disabled>
             </div>
           </div>
 
-          <!-- Total -->
+          <!-- Total 15% -->
           <div style="width: 15%; box-sizing: border-box;">
             <div class="bg-light">
               <input type="text" class="form-control text-right" v-model="item.total" placeholder="0.00" disabled>
@@ -224,6 +224,27 @@
           </div>
 
         </div> <!-- End Item -->
+
+        <!-- Totales -->
+        <div class="d-inline-flex mb-1" style="width: 100%;">
+          <div style="width: 55%; box-sizing: content-box;"></div>
+          <div style="width: 15%; box-sizing: content-box;">
+            <div class="mr-2">
+              <small class="form-text text-muted">Gravadas </small>
+              <input type="email" class="form-control text-right" v-model="boleta.total_gravadas" placeholder="0.00">
+            </div>            
+          </div>
+          <div style="width: 15%; box-sizing: content-box;">
+            <div class="mr-2">
+              <small class="form-text text-muted">IGV </small>
+              <input type="email" class="form-control text-right" v-model="boleta.total_igv" placeholder="0.00">  
+            </div>            
+          </div>
+          <div style="width: 15%; box-sizing: content-box;">
+            <small class="form-text text-muted">Total </small>
+            <input type="email" class="form-control text-right" v-model="boleta.total_total" placeholder="0.00">
+          </div>
+        </div>
 
       </div><!-- End Modal Body -->
 
