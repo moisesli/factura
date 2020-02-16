@@ -384,7 +384,18 @@
             total: null
           }];
         } else if (action == 'editar') {
-
+          this.boleta.id = boleta.id;
+          this.boleta.tipo = boleta.tipo;
+          this.boleta.ruc = boleta.ruc;
+          this.boleta.razon = boleta.razon;
+          this.boleta.direccion = boleta.direccion;
+          this.boleta.serie = boleta.serie;
+          this.boleta.fecha_emision = boleta.fecha_emision;
+          this.boleta.venta_interna = boleta.venta_interna;
+          this.boleta.total_gravadas = boleta.total_gravadas;
+          this.boleta.total_igv = boleta.total_igv;
+          this.boleta.total_total = boleta.total_total;
+          this.boleta.items = boleta.items;
         }
         $('#boletaModal').modal('show')
         // console.log(this.boleta)
