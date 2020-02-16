@@ -139,7 +139,7 @@
             this.boleta.items[index].descuento = res.data[0].descuento;
             this.boleta.items[index].subtotal = res.data[0].subtotal;
             this.boleta.items[index].total = res.data[0].total;
-            // this.facturaItemsSumTotal();
+            this.boletaItemsSumTotal();
           } else if (res.data[0].lista == 'ceroNinguno') {
             this.boleta.items[index].productos = null;
             this.boleta.items[index].cantidad = null;
@@ -185,6 +185,36 @@
           // console.log(res.data)
         })
       },
+      boletaSave: function() {
+        console.log(this.boleta)
+        // $('#boletaModal').modal('hide')
+
+        axios.post('./_documentos.php?f=boleta_save', { boleta: this.boleta }).then(res => {
+          // console.log(res.data)
+          if (res.data == 'ok') {
+            Swal.fire({
+              title: 'Factura Guardada!',
+              text: 'correctamente!!!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            }).then((result) => {
+              $('#boletaModal').modal('hide')
+              this.facturaList();
+            });
+          }
+          else {
+            Swal.fire({
+              title: 'Error No se Guardo!',
+              text: 'Corregir!!!',
+              icon: 'error',
+              confirmButtonText: 'Continuar'
+            }).then((result) => {
+              $('#boletaModal').modal('hide')
+            });
+          }
+        })
+
+      },
       facturaSave: function() {
         // console.log(this.factura)
 
@@ -213,10 +243,30 @@
         })
 
       },
+      boletaItemsSumTotal: function() {
+
+        // Sumatorias
+        let tempSumGravadas = 0.00;
+        let tempSumIgv = 0.00;
+        let tempSumTotal = 0.00;
+
+        this.boleta.items.forEach(item => {
+          // console.log(typeof tempSumGravadas + typeof item.subtotal);
+          tempSumGravadas = parseFloat(tempSumGravadas) + parseFloat(item.subtotal);
+          tempSumIgv = parseFloat(tempSumIgv) + parseFloat(item.igv);
+          tempSumTotal = parseFloat(tempSumTotal) + parseFloat(item.total);
+          tempSumGravadas = tempSumGravadas.toFixed(2);
+          tempSumIgv = tempSumIgv.toFixed(2);
+          tempSumTotal = tempSumTotal.toFixed(2);
+        });
+        this.boleta.total_gravadas = tempSumGravadas;
+        this.boleta.total_igv = tempSumIgv;
+        this.boleta.total_total = tempSumTotal;
+
+      },
       facturaItemsSumTotal: function() {
 
         // Sumatorias
-
         let tempSumGravadas = 0.00;
         let tempSumIgv = 0.00;
         let tempSumTotal = 0.00;
@@ -277,7 +327,7 @@
           this.boleta.items[i].subtotal = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_sin_igv).toFixed(2);
           this.boleta.items[i].total = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_con_igv).toFixed(2);
           this.boleta.items[i].igv = (this.boleta.items[i].total - this.boleta.items[i].subtotal).toFixed(2);
-          this.facturaItemsSumTotal();
+          this.boletaItemsSumTotal();
         }
       },
       facturaItemCantidadChange: function(i, item) {
@@ -295,7 +345,7 @@
         this.boleta.items[i].subtotal = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_sin_igv).toFixed(2);
         this.boleta.items[i].total = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_con_igv).toFixed(2);
         this.boleta.items[i].igv = (this.boleta.items[i].total - this.boleta.items[i].subtotal).toFixed(2);
-        this.facturaItemsSumTotal();
+        this.boletaItemsSumTotal();
         // console.log(item)
       },
       facturaItemPrecioChange: function(i, item) {
@@ -309,10 +359,10 @@
       boletaOpenModal: function(action, boleta) {
         if (action == 'nuevo') {
           this.boleta.id = '';
-          this.boleta.ruc = '';
-          this.boleta.tipo = 'factura';
-          this.boleta.razon = '';
-          this.boleta.direccion = '';
+          this.boleta.ruc = '10425162531';
+          this.boleta.tipo = 'boleta';
+          this.boleta.razon = 'Surmotriz S.R.L.';
+          this.boleta.direccion = 'Av. Leguia 580';
           this.boleta.serie = this.boleta_default;
           this.boleta.fecha_emision = '<?php echo date('Y-m-d') ?>';
           this.boleta.venta_interna = '1';
@@ -337,7 +387,7 @@
 
         }
         $('#boletaModal').modal('show')
-        console.log(this.boleta)
+        // console.log(this.boleta)
       },
       facturaOpenModal: function(action, factura) {
         if (action == 'nuevo') {

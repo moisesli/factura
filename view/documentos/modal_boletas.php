@@ -133,7 +133,7 @@
           <!-- Total -->
           <div class="" style="width: 15%; box-sizing: content-box;">
             <div>
-              <small class="form-text text-muted">Total </small>
+              <small class="form-text text-muted text-right pr-2">Total </small>
             </div>
           </div>
         </div>
@@ -227,30 +227,39 @@
 
         <!-- Totales -->
         <div class="d-inline-flex mb-1" style="width: 100%;">
+
+          <!-- Espacio-->
           <div style="width: 55%; box-sizing: content-box;"></div>
+
+          <!-- Gravadas -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="mr-2">
               <small class="form-text text-muted">Gravadas </small>
-              <input type="email" class="form-control text-right" v-model="boleta.total_gravadas" placeholder="0.00">
-            </div>            
+              <input type="email" class="form-control text-right" v-model="boleta.total_gravadas" placeholder="0.00" disabled>
+            </div>
           </div>
+
+          <!-- IGV -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="mr-2">
               <small class="form-text text-muted">IGV </small>
-              <input type="email" class="form-control text-right" v-model="boleta.total_igv" placeholder="0.00">  
-            </div>            
+              <input type="email" class="form-control text-right" v-model="boleta.total_igv" placeholder="0.00" disabled>
+            </div>
           </div>
+
+          <!-- Total -->
           <div style="width: 15%; box-sizing: content-box;">
-            <small class="form-text text-muted">Total </small>
-            <input type="email" class="form-control text-right" v-model="boleta.total_total" placeholder="0.00">
+            <small class="form-text text-muted text-right pr-2"><strong>Total</strong> </small>
+            <input type="email" class="form-control text-right" v-model="boleta.total_total" placeholder="0.00" disabled>
           </div>
         </div>
 
       </div><!-- End Modal Body -->
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" v-if="boleta.id ==''" @click="boletaSave"><i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-primary" v-else @click="boletaSave"><i class="fa fa-edit"></i> Editar</button>
       </div>
     </div>
   </div>
