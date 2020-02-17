@@ -167,37 +167,37 @@ class documentos
                              where id = {$post['boleta']['id']}";
       $conn->query($sql_factura_update);
 
-//      foreach ($post['boleta']['items'] as $item){
-//        if ($item['id'] != ''){
-//          $facturaSqlSaveItems = "update docs_items set
-//                                  nombre = '{$item['nombre']}',
-//                                  producto_id = '{$item['producto_id']}',
-//                                  cantidad = {$item['cantidad']},
-//                                  precio_sin_igv = {$item['precio_sin_igv']},
-//                                  precio_con_igv = {$item['precio_con_igv']},
-//                                  igv = {$item['igv']},
-//                                  descuento = {$item['descuento']},
-//                                  subtotal = {$item['subtotal']},
-//                                  tipo_igv = {$item['tipo_igv']},
-//                                  total = {$item['total']}
-//                                  where id = {$item['id']}";
-//        }else {
-//          $facturaSqlSaveItems = "insert into docs_items set
-//                                  nombre = '{$item['nombre']}',
-//                                  producto_id = '{$item['producto_id']}',
-//                                  cantidad = {$item['cantidad']},
-//                                  precio_sin_igv = {$item['precio_sin_igv']},
-//                                  precio_con_igv = {$item['precio_con_igv']},
-//                                  igv = {$item['igv']},
-//                                  descuento = {$item['descuento']},
-//                                  subtotal = {$item['subtotal']},
-//                                  tipo_igv = {$item['tipo_igv']},
-//                                  total = {$item['total']},
-//                                  doc_id = {$post['factura']['id']}
-//                            ";
-//        }
-//        $conn->query($facturaSqlSaveItems);
-//      }
+      foreach ($post['boleta']['items'] as $item){
+        if ($item['id'] != ''){
+          $facturaSqlSaveItems = "update docs_items set
+                                  nombre = '{$item['nombre']}',
+                                  producto_id = '{$item['producto_id']}',
+                                  cantidad = {$item['cantidad']},
+                                  precio_sin_igv = {$item['precio_sin_igv']},
+                                  precio_con_igv = {$item['precio_con_igv']},
+                                  igv = {$item['igv']},
+                                  descuento = {$item['descuento']},
+                                  subtotal = {$item['subtotal']},
+                                  tipo_igv = {$item['tipo_igv']},
+                                  total = {$item['total']}
+                                  where id = {$item['id']}";
+        }else {
+          $facturaSqlSaveItems = "insert into docs_items set
+                                  nombre = '{$item['nombre']}',
+                                  producto_id = '{$item['producto_id']}',
+                                  cantidad = {$item['cantidad']},
+                                  precio_sin_igv = {$item['precio_sin_igv']},
+                                  precio_con_igv = {$item['precio_con_igv']},
+                                  igv = {$item['igv']},
+                                  descuento = {$item['descuento']},
+                                  subtotal = {$item['subtotal']},
+                                  tipo_igv = {$item['tipo_igv']},
+                                  total = {$item['total']},
+                                  doc_id = {$post['boleta']['id']}
+                            ";
+        }
+        $conn->query($facturaSqlSaveItems);
+      }
 
     }
 

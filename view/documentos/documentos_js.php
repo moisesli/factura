@@ -72,11 +72,59 @@
           total: null
         }]
       },
-      nota: {
-        id: ''
+      credito: {
+        id: '',
+        tipo: 'credito',
+        ruc: '',
+        razon: '',
+        direccion: '',
+        serie: '',
+        fecha_emision: '',
+        venta_interna: '',
+        total_gravadas: '',
+        total_igv: '',
+        total_total: '',
+        items: [{
+          productos: [],
+          nombre: '',
+          producto_id: '',
+          unidad: '',
+          cantidad: null,
+          precio_con_igv: null,
+          precio_sin_igv: null,
+          igv: null,
+          tipo_igv: '0',
+          descuento: null,
+          subtotal: null,
+          total: null
+        }]
       },
       debito: {
-        id: ''
+        id: '',
+        tipo: 'debito',
+        ruc: '',
+        razon: '',
+        direccion: '',
+        serie: '',
+        fecha_emision: '',
+        venta_interna: '',
+        total_gravadas: '',
+        total_igv: '',
+        total_total: '',
+        items: [{
+          productos: [],
+          nombre: '',
+          producto_id: '',
+          unidad: '',
+          cantidad: null,
+          precio_con_igv: null,
+          precio_sin_igv: null,
+          igv: null,
+          tipo_igv: '0',
+          descuento: null,
+          subtotal: null,
+          total: null
+        }]
       }
     },
     methods: {
@@ -447,6 +495,7 @@
       },
       boletaAddLine: function() {
         this.boleta.items.push({
+          id: '',
           nombre: '',
           producto_id: null,
           unidad: '',

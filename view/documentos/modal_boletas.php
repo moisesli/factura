@@ -12,7 +12,7 @@
 
       </div>
       <div class="modal-body">
-<!--        {{ $data.boleta }}-->
+
         <div class="d-inline-flex" style="width: 100%;">
 
           <!-- RUC -->
