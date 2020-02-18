@@ -17,10 +17,18 @@ if ($f == 'searchproductos') {
   echo $documento->facturaList();
 }elseif ($f == 'get_series'){
   echo $documento->getSeries($post['tipo']);
+}elseif ($f == 'credito_import_doc'){
+  echo $documento->creditoImportDoc();
 }
 
 class documentos
 {
+
+  public function creditoImportDoc(){
+    global $conn, $post;
+    $sql_get_doc = $conn->query("select * from docs where numero = '{$post['numero']}'")->fetch_array(MYSQLI_ASSOC);
+    return json_encode($sql_get_doc);
+  }
 
   public function getSeries($tipo){
     global $conn, $post;
@@ -30,7 +38,6 @@ class documentos
     $sql_series = $conn->query($sql_series)->fetch_all(MYSQLI_ASSOC);
     return json_encode($sql_series);
   }
-
 
   public function facturaList(){
     global $conn, $post;

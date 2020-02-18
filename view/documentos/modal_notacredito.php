@@ -18,9 +18,9 @@
             <div class="mr-2">
               <small class="form-text text-muted">Buscar Doc</small>
               <div class="input-group">
-                <input type="text" class="form-control text-right" placeholder="0000789">
+                <input type="text" class="form-control text-right" v-model="credito.numero" placeholder="0000789">
                 <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                  <span class="input-group-text" @click="creditoImportDoc(credito.numero)"><i class="fas fa-search"></i></span>
                 </div>
               </div>
             </div>
