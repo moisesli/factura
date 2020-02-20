@@ -64,7 +64,7 @@
                     <div class="form-group">
                       <small class="form-text text-muted">Serie </small>
                       <select class="form-control" v-model="credito.serie">
-<!--                        <option v-for="item in credito_series">{{ item.serie }}</option>-->
+                        <option v-for="item in credito_series">{{ item.serie }}</option>
                       </select>
                     </div>
 
@@ -92,6 +92,133 @@
           </div>
 
         </div> <!-- End Datos Generales -->
+
+        <!-- Items Titulos -->
+        <div class="d-inline-flex pt-2" style="width: 100%;">
+
+          <!-- Producto -->
+          <div style="width: 37%; box-sizing: content-box;">
+            <div class="pr-2">
+              <small class="form-text text-muted">Productos </small>
+            </div>
+          </div>
+
+          <!-- Opciones -->
+          <div style="width: 5.5%; box-sizing: content-box;">
+            <div class="">
+              <small class="form-text text-muted">Opci</small>
+            </div>
+          </div>
+
+          <!-- Cantidad -->
+          <div style="width: 15%; box-sizing: content-box;">
+            <div class="pr-2">
+              <small class="form-text text-muted">Cantidad </small>
+            </div>
+          </div>
+          <!-- Precio -->
+          <div style="width: 15%; box-sizing: content-box;">
+            <div class="pr-2">
+              <small class="form-text text-muted">Precio </small>
+            </div>
+          </div>
+          <!-- Subtotal -->
+          <div style="width: 15%; box-sizing: content-box;">
+            <div class="pr-2">
+              <small class="form-text text-muted">Subtotal </small>
+            </div>
+          </div>
+          <!-- Total -->
+          <div class="" style="width: 15%; box-sizing: content-box;">
+            <div>
+              <small class="form-text text-muted text-right pr-2">Total </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Items -->
+        <div class="d-inline-flex mb-1" style="width: 100%;" v-for="(item, index) in credito.items">
+
+          <!-- Producto 37% -->
+          <div style="width: 37%; box-sizing: border-box;">
+            <div class="pr-2 bg-light">
+              <input type="search" class="form-control" v-model="item.nombre" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Opciones 5.5% -->
+          <div style="width: 5.5%; box-sizing: content-box;">
+            <div class="bg-light">
+              <div class="dropdown">
+                <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu">
+                  <form class="px-4 py-3" @submit.prevent="">
+
+                    <!-- Tipo de IGV -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Tipo de IGV</small>
+                      <select class="form-control" v-model="item.tipo_igv">
+                        <option value="1">Gravada</option>
+                        <option value="2">Exonerada</option>
+                        <option value="3">Inafecto</option>
+                      </select>
+                    </div>
+
+                    <!-- Descuento -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Descuento </small>
+                      <input type="text" class="form-control" v-model="item.descuento" placeholder="0.00">
+                    </div>
+
+                    <!-- Igv Linea -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">IGV Linea </small>
+                      <input type="text" class="form-control" v-model="item.igv" placeholder="0.00">
+                    </div>
+
+                    <!-- Eliminar -->
+                    <div class="form-group">
+                      <small class="form-text text-muted">Eliminar</small>
+                      <button class="btn btn-default"><i class="fa fa-trash"></i></button>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cantidad 12.5% -->
+          <div style="width: 12.5%; box-sizing: border-box;">
+            <div class="pr-2 pl-2 bg-light">
+              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="boletaItemCantidadChange(index, item)" placeholder="0">
+            </div>
+          </div>
+
+          <!-- Precio 15% -->
+          <div style="width: 15%; box-sizing: content-box;">
+            <div class="pr-2">
+              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="boletaItemPrecioChange(index, item)" placeholder="0.00">
+            </div>
+          </div>
+
+          <!-- Subtotal 15% -->
+          <div class="" style="width: 15%; box-sizing: content-box;">
+            <div class="pr-2">
+              <input type="text" class="form-control text-right" v-model="item.subtotal" placeholder="0.00" disabled>
+            </div>
+          </div>
+
+          <!-- Total 15% -->
+          <div style="width: 15%; box-sizing: border-box;">
+            <div class="bg-light">
+              <input type="text" class="form-control text-right" v-model="item.total" placeholder="0.00" disabled>
+            </div>
+          </div>
+
+        </div> <!-- End Items -->
 
       </div>
       <div class="modal-footer">

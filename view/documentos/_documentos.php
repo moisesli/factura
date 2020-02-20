@@ -26,13 +26,23 @@ class documentos
 
   public function creditoImportDoc(){
     global $conn, $post;
-    $sql_get_doc = $conn->query("select * from docs where numero = '{$post['numero']}'")->fetch_array(MYSQLI_ASSOC);
+
+    // Cabezera
+    $sql_get_doc = $conn->query("select * from docs where numero = '{$post['numero']}'")
+                        ->fetch_array(MYSQLI_ASSOC);
+
+    // Detalles
+    $sql_get_items = $conn->query("select * from docs_items where doc_id = {$sql_get_doc['id']}")
+                        ->fetch_all(MYSQLI_ASSOC);
+
+    $sql_get_doc['items'] = $sql_get_items;
     return json_encode($sql_get_doc);
   }
 
   public function getSeries($tipo){
     global $conn, $post;
     session_start();
+
     $sql_series = "select * from config_docs_tipos
                             where empresa_id = {$_SESSION['empresa_id']} and config_const_doc_id = {$tipo}";
     $sql_series = $conn->query($sql_series)->fetch_all(MYSQLI_ASSOC);

@@ -7,16 +7,10 @@
       productosList: [],
       factura_series: [],
       factura_default: null,
-      factura_credito_series: [],
-      factura_credito_default: null,
-      factura_debito_series: [],
-      factura_debito_default: null,
+      credito_series: [],
+      debito_series: [],
       boleta_series: [],
       boleta_default: null,
-      boleta_credito_series: [],
-      boleta_credito_default: null,
-      boleta_debito_series: [],
-      boleta_debito_default: null,
       boleta: {
         id: '',
         tipo: 'boleta',
@@ -131,6 +125,19 @@
     methods: {
       creditoImportDoc: function(numero){
         axios.post('./_documentos.php?f=credito_import_doc', { numero: numero }).then(res => {
+          this.credito.ruc = res.data.ruc;
+          this.credito.razon = res.data.razon;
+          this.credito.direccion  = res.data.direccion;
+          // 2 : Credito Facturas
+          // 5 : Credito Boletas
+          if (res.data.tipo == 'factura'){
+            this.creditoSeries(2);
+          }else if (res.data.tipo == 'boleta'){
+            this.creditoSeries(5);
+          }
+          this.credito.fecha_emision = '<?php echo date('Y-m-d') ?>';
+          this.credito.venta_interna = '1';
+          this.credito.items = res.data.items;
           console.log(res.data)
         })
       },
@@ -142,7 +149,16 @@
               this.factura_default = item.serie;
             }
           })
-          // console.log(this.factura_series)
+        })
+      },
+      creditoSeries: function(tipo){
+        axios.post('./_documentos.php?f=get_series', { tipo: tipo }).then(res => {
+          this.credito_series = res.data;
+          res.data.forEach(item => {
+            if (item.defecto == '1'){
+              this.credito.serie = item.serie;
+            }
+          })
         })
       },
       facturaCreditoSeries: function(){
@@ -551,11 +567,11 @@
     created() {
       this.facturaList();
       this.facturaSeries();
-      this.facturaCreditoSeries();
-      this.facturaDebitoSeries();
+      // this.facturaCreditoSeries();
+      // this.facturaDebitoSeries();
       this.boletaSeries();
-      this.boletaCreditoSeries();
-      this.boletaDebitoSeries();
+      // this.boletaCreditoSeries();
+      // this.boletaDebitoSeries();
     }
   });
 </script>
