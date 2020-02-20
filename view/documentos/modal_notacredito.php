@@ -252,8 +252,9 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" v-if="credito.id ==''" @click="creditoSave"><i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-primary" v-else @click="creditoSave"><i class="fa fa-edit"></i> Editar</button>
       </div>
     </div>
   </div>

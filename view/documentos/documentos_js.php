@@ -123,8 +123,12 @@
       }
     },
     methods: {
+      creditoSave: function(){
+
+      },
       creditoImportDoc: function (numero) {
         axios.post('./_documentos.php?f=credito_import_doc', {numero: numero}).then(res => {
+          this.credito.id = '';
           this.credito.ruc = res.data.ruc;
           this.credito.razon = res.data.razon;
           this.credito.direccion = res.data.direccion;
