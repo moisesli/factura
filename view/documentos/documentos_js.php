@@ -123,80 +123,84 @@
       }
     },
     methods: {
-      creditoImportDoc: function(numero){
-        axios.post('./_documentos.php?f=credito_import_doc', { numero: numero }).then(res => {
+      creditoImportDoc: function (numero) {
+        axios.post('./_documentos.php?f=credito_import_doc', {numero: numero}).then(res => {
           this.credito.ruc = res.data.ruc;
           this.credito.razon = res.data.razon;
-          this.credito.direccion  = res.data.direccion;
+          this.credito.direccion = res.data.direccion;
           // 2 : Credito Facturas
           // 5 : Credito Boletas
-          if (res.data.tipo == 'factura'){
+          if (res.data.tipo == 'factura') {
             this.creditoSeries(2);
-          }else if (res.data.tipo == 'boleta'){
+          } else if (res.data.tipo == 'boleta') {
             this.creditoSeries(5);
           }
           this.credito.fecha_emision = '<?php echo date('Y-m-d') ?>';
           this.credito.venta_interna = '1';
           this.credito.items = res.data.items;
+          this.credito.total_gravadas = res.data.total_gravadas;
+          this.credito.total_igv = res.data.total_igv;
+          this.credito.total_total = res.data.total_total;
+
           console.log(res.data)
         })
       },
-      facturaSeries: function(){
-        axios.post('./_documentos.php?f=get_series', { tipo: 1 }).then(res => {
+      facturaSeries: function () {
+        axios.post('./_documentos.php?f=get_series', {tipo: 1}).then(res => {
           this.factura_series = res.data;
           res.data.forEach(item => {
-            if (item.defecto == '1'){
+            if (item.defecto == '1') {
               this.factura_default = item.serie;
             }
           })
         })
       },
-      creditoSeries: function(tipo){
-        axios.post('./_documentos.php?f=get_series', { tipo: tipo }).then(res => {
+      creditoSeries: function (tipo) {
+        axios.post('./_documentos.php?f=get_series', {tipo: tipo}).then(res => {
           this.credito_series = res.data;
           res.data.forEach(item => {
-            if (item.defecto == '1'){
+            if (item.defecto == '1') {
               this.credito.serie = item.serie;
             }
           })
         })
       },
-      facturaCreditoSeries: function(){
-        axios.post('./_documentos.php?f=get_series', { tipo: 2 }).then(res => {
+      facturaCreditoSeries: function () {
+        axios.post('./_documentos.php?f=get_series', {tipo: 2}).then(res => {
           this.factura_credito_series = res.data;
           res.data.forEach(item => {
-            if (item.defecto == '1'){
+            if (item.defecto == '1') {
               this.factura_credito_default = item.serie;
             }
           })
           // console.log(res.data)
         })
       },
-      facturaDebitoSeries: function(){
-        axios.post('./_documentos.php?f=get_series', { tipo: 3 }).then(res => {
+      facturaDebitoSeries: function () {
+        axios.post('./_documentos.php?f=get_series', {tipo: 3}).then(res => {
           this.factura_debito_series = res.data;
           res.data.forEach(item => {
-            if (item.defecto == '1'){
+            if (item.defecto == '1') {
               this.factura_debito_default = item.serie;
             }
           })
           // console.log(res.data)
         })
       },
-      boletaSeries: function(){
-        axios.post('./_documentos.php?f=get_series', { tipo: 4 }).then(res => {
+      boletaSeries: function () {
+        axios.post('./_documentos.php?f=get_series', {tipo: 4}).then(res => {
           this.boleta_series = res.data;
           res.data.forEach(item => {
-            if (item.defecto == '1'){
+            if (item.defecto == '1') {
               this.boleta_default = item.serie;
             }
           })
           // console.log(this.boleta_default)
         })
       },
-      boletaItemNombreChange: function(index, item, text) {
+      boletaItemNombreChange: function (index, item, text) {
         // console.log(text);
-        axios.post('./_documentos.php?f=searchproductos', { text: text }).then(res => {
+        axios.post('./_documentos.php?f=searchproductos', {text: text}).then(res => {
           // console.log(this.factura.items[index].productos)
           if (res.data[0].lista == 'unoIgual') {
             this.boleta.items[index].productos = null;
@@ -227,39 +231,39 @@
         });
 
       },
-      boletaCreditoSeries: function(){
-        axios.post('./_documentos.php?f=get_series', { tipo: 5 }).then(res => {
+      boletaCreditoSeries: function () {
+        axios.post('./_documentos.php?f=get_series', {tipo: 5}).then(res => {
           this.boleta_credito_series = res.data;
           res.data.forEach(item => {
-            if (item.defecto == '1'){
+            if (item.defecto == '1') {
               this.boleta_credito_default = item.serie;
             }
           })
           // console.log(res.data)
         })
       },
-      boletaDebitoSeries: function(){
-        axios.post('./_documentos.php?f=get_series', { tipo: 6 }).then(res => {
+      boletaDebitoSeries: function () {
+        axios.post('./_documentos.php?f=get_series', {tipo: 6}).then(res => {
           this.boleta_debito_series = res.data;
           res.data.forEach(item => {
-            if (item.defecto == '1'){
+            if (item.defecto == '1') {
               this.boleta_debito_default = item.serie;
             }
           })
           // console.log(res.data)
         })
       },
-      facturaList: function(){
+      facturaList: function () {
         axios.post('./_documentos.php?f=factura_list').then(res => {
           this.docs = res.data;
           // console.log(res.data)
         })
       },
-      boletaSave: function() {
+      boletaSave: function () {
         console.log(this.boleta)
         // $('#boletaModal').modal('hide')
 
-        axios.post('./_documentos.php?f=boleta_save', { boleta: this.boleta }).then(res => {
+        axios.post('./_documentos.php?f=boleta_save', {boleta: this.boleta}).then(res => {
           // console.log(res.data)
           if (res.data == 'ok') {
             Swal.fire({
@@ -271,8 +275,7 @@
               $('#boletaModal').modal('hide')
               this.facturaList();
             });
-          }
-          else {
+          } else {
             Swal.fire({
               title: 'Error No se Guardo!',
               text: 'Corregir!!!',
@@ -285,10 +288,10 @@
         })
 
       },
-      facturaSave: function() {
+      facturaSave: function () {
         // console.log(this.factura)
 
-        axios.post('./_documentos.php?f=factura_save_new', { factura: this.factura }).then(res => {
+        axios.post('./_documentos.php?f=factura_save_new', {factura: this.factura}).then(res => {
           // console.log(res.data)
           if (res.data == 'ok') {
             Swal.fire({
@@ -313,7 +316,7 @@
         })
 
       },
-      boletaItemsSumTotal: function() {
+      boletaItemsSumTotal: function () {
 
         // Sumatorias
         let tempSumGravadas = 0.00;
@@ -334,7 +337,7 @@
         this.boleta.total_total = tempSumTotal;
 
       },
-      facturaItemsSumTotal: function() {
+      facturaItemsSumTotal: function () {
 
         // Sumatorias
         let tempSumGravadas = 0.00;
@@ -355,7 +358,7 @@
         this.factura.total_total = tempSumTotal;
 
       },
-      facturaItemNombreChange: function(index, item, text) {
+      facturaItemNombreChange: function (index, item, text) {
         // console.log(text);
 
         axios.post('./_documentos.php?f=searchproductos', {
@@ -390,7 +393,7 @@
         });
 
       },
-      boletaItemCantidadChange: function(i, item) {
+      boletaItemCantidadChange: function (i, item) {
         // console.log(typeof i + ' = ' + i)
         if (this.boleta.items[i].cantidad != 0) {
           // los calculos se hacen en base a los precios unitarios con igv y sin igv
@@ -400,7 +403,7 @@
           this.boletaItemsSumTotal();
         }
       },
-      facturaItemCantidadChange: function(i, item) {
+      facturaItemCantidadChange: function (i, item) {
         // console.log(typeof i + ' = ' + i)
         if (this.factura.items[i].cantidad != 0) {
           // los calculos se hacen en base a los precios unitarios con igv y sin igv
@@ -410,7 +413,7 @@
           this.facturaItemsSumTotal();
         }
       },
-      boletaItemPrecioChange: function(i, item) {
+      boletaItemPrecioChange: function (i, item) {
         this.boleta.items[i].precio_sin_igv = this.boleta.items[i].precio_con_igv - this.boleta.items[i].precio_con_igv * 0.18;
         this.boleta.items[i].subtotal = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_sin_igv).toFixed(2);
         this.boleta.items[i].total = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_con_igv).toFixed(2);
@@ -418,7 +421,7 @@
         this.boletaItemsSumTotal();
         // console.log(item)
       },
-      facturaItemPrecioChange: function(i, item) {
+      facturaItemPrecioChange: function (i, item) {
         this.factura.items[i].precio_sin_igv = this.factura.items[i].precio_con_igv - this.factura.items[i].precio_con_igv * 0.18;
         this.factura.items[i].subtotal = (this.factura.items[i].cantidad * this.factura.items[i].precio_sin_igv).toFixed(2);
         this.factura.items[i].total = (this.factura.items[i].cantidad * this.factura.items[i].precio_con_igv).toFixed(2);
@@ -426,7 +429,7 @@
         this.facturaItemsSumTotal();
         // console.log(item)
       },
-      boletaOpenModal: function(action, boleta) {
+      boletaOpenModal: function (action, boleta) {
         if (action == 'nuevo') {
           this.boleta.id = '';
           this.boleta.ruc = '10425162531';
@@ -470,7 +473,7 @@
         $('#boletaModal').modal('show')
         // console.log(this.boleta)
       },
-      facturaOpenModal: function(action, factura) {
+      facturaOpenModal: function (action, factura) {
         if (action == 'nuevo') {
           this.factura.id = '';
           this.factura.tipo = 'factura';
@@ -515,7 +518,7 @@
         }
         $('#facturaModal').modal('show')
       },
-      boletaAddLine: function() {
+      boletaAddLine: function () {
         this.boleta.items.push({
           id: '',
           nombre: '',
@@ -531,7 +534,7 @@
           total: 0
         });
       },
-      facturaAddLine: function() {
+      facturaAddLine: function () {
         this.factura.items.push({
           id: '',
           nombre: '',
@@ -547,7 +550,7 @@
           total: 0
         });
       },
-      creditoOpenModal: function(action) {
+      creditoOpenModal: function (action) {
         if (action == 'nuevo') {
           this.credito.id = '';
         } else if (action == 'editar') {
@@ -555,7 +558,7 @@
         }
         $('#creditoModal').modal('show')
       },
-      debitoOpenModal: function(action) {
+      debitoOpenModal: function (action) {
         if (action == 'nuevo') {
           this.debito.id = '';
         } else if (action == 'editar') {
