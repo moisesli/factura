@@ -97,6 +97,7 @@
       debito: {
         id: '',
         tipo: 'debito',
+        numero: '',
         ruc: '',
         razon: '',
         direccion: '',
@@ -107,6 +108,7 @@
         total_igv: '',
         total_total: '',
         items: [{
+          id: '',
           productos: [],
           nombre: '',
           producto_id: '',
@@ -123,6 +125,28 @@
       }
     },
     methods: {
+      debitoImportDoc: function(numero){
+        axios.post('./_documentos.php?f=debito_import_doc', { numero: numero }).then(res => {
+          this.debito.id = '';
+          this.debito.ruc = res.data.ruc;
+          this.debito.razon = res.data.razon;
+          this.debito.direccion = res.data.direccion;
+          // 3 : Credito Facturas
+          // 6 : Credito Boletas
+          if (res.data.tipo == 'factura') {
+            // console.log(res.data.tipo)
+            this.debitoSeries(3);
+          } else if (res.data.tipo == 'boleta') {
+            this.debitoSeries(6);
+          }
+          this.debito.fecha_emision = '<?php echo date('Y-m-d') ?>';
+          this.debito.venta_interna = '1';
+          this.debito.items = res.data.items;
+          this.debito.total_gravadas = res.data.total_gravadas;
+          this.debito.total_igv = res.data.total_igv;
+          this.debito.total_total = res.data.total_total;
+        })
+      },
       creditoSave: function(){
 
       },
@@ -165,6 +189,16 @@
           res.data.forEach(item => {
             if (item.defecto == '1') {
               this.credito.serie = item.serie;
+            }
+          })
+        })
+      },
+      debitoSeries: function (tipo) {
+        axios.post('./_documentos.php?f=get_series', {tipo: tipo}).then(res => {
+          this.debito_series = res.data;
+          res.data.forEach(item => {
+            if (item.defecto == '1') {
+              this.debito.serie = item.serie;
             }
           })
         })

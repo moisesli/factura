@@ -19,10 +19,28 @@ if ($f == 'searchproductos') {
   echo $documento->getSeries($post['tipo']);
 }elseif ($f == 'credito_import_doc'){
   echo $documento->creditoImportDoc();
+}elseif ($f == 'debito_import_doc'){
+  echo $documento->debitoImportDoc();
 }
 
 class documentos
 {
+
+  public function debitoImportDoc(){
+    global $conn, $post;
+
+    // Cabezera
+    $sql_get_doc = $conn->query("select * from docs where numero = '{$post['numero']}'")
+      ->fetch_array(MYSQLI_ASSOC);
+
+    // Detalles
+    $sql_get_items = $conn->query("select * from docs_items where doc_id = {$sql_get_doc['id']}")
+      ->fetch_all(MYSQLI_ASSOC);
+
+    $sql_get_doc['items'] = $sql_get_items;
+    return json_encode($sql_get_doc);
+
+  }
 
   public function creditoImportDoc(){
     global $conn, $post;
