@@ -141,7 +141,7 @@
           }
           this.debito.fecha_emision = '<?php echo date('Y-m-d') ?>';
           this.debito.venta_interna = '1';
-          this.debito.items = res.data.items;
+          // this.debito.items = res.data.items;
           this.debito.total_gravadas = res.data.total_gravadas;
           this.debito.total_igv = res.data.total_igv;
           this.debito.total_total = res.data.total_total;
