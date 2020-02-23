@@ -73,7 +73,7 @@ class documentos
     global $conn, $post;
 
     // Facturas
-    $facturasqlList = "select * from docs";
+    $facturasqlList = "select * from docs order by id DESC";
     $facturasqlList = $conn->query($facturasqlList)->fetch_all(MYSQLI_ASSOC);
 
     foreach ($facturasqlList as $index => $doc){
