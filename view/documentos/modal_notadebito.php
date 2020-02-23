@@ -208,14 +208,14 @@
           <!-- Cantidad 12.5% -->
           <div style="width: 12.5%; box-sizing: border-box;">
             <div class="pr-2 pl-2 bg-light">
-              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="boletaItemCantidadChange(index, item)" placeholder="0">
+              <input type="text" class="form-control text-right" v-model="item.cantidad" @input="debitoItemCantidadChange(index, item)" placeholder="0">
             </div>
           </div>
 
           <!-- Precio 15% -->
           <div style="width: 15%; box-sizing: content-box;">
             <div class="pr-2">
-              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="boletaItemPrecioChange(index, item)" placeholder="0.00">
+              <input type="text" class="form-control text-right" v-model="item.precio_con_igv" @input="debitoItemPrecioChange(index, item)" placeholder="0.00">
             </div>
           </div>
 
@@ -268,8 +268,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" v-if="debito.id ==''" @click="creditoSave"><i class="fa fa-save"></i> Guardar</button>
-        <button type="button" class="btn btn-primary" v-else @click="creditoSave"><i class="fa fa-edit"></i> Editar</button>
+        <button type="button" class="btn btn-primary" v-if="debito.id ==''" @click="debitoSave"><i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-primary" v-else @click="debitoSave"><i class="fa fa-edit"></i> Editar</button>
       </div>
     </div>
   </div>

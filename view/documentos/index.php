@@ -108,6 +108,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuReference">
                           <a class="dropdown-item" v-if="doc.tipo == 'factura'" @click="facturaOpenModal('editar',doc)" href="#">Editar Factura</a>
                           <a class="dropdown-item" v-if="doc.tipo == 'boleta'" @click="boletaOpenModal('editar',doc)" href="#">Editar Boleta</a>
+                          <a class="dropdown-item" v-if="doc.tipo == 'debito'" @click="debitoOpenModal('editar',doc)" href="#">Editar Debito</a>
                           <a class="dropdown-item" href="#">Enviar Sunat</a>
                           <a class="dropdown-item" href="#">Something else here</a>
                           <div class="dropdown-divider"></div>

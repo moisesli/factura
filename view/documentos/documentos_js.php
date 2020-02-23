@@ -170,7 +170,7 @@
           this.credito.total_igv = res.data.total_igv;
           this.credito.total_total = res.data.total_total;
 
-          console.log(res.data)
+          // console.log(res.data)
         })
       },
       facturaSeries: function () {
@@ -251,19 +251,24 @@
             this.debito.items[index].descuento = res.data[0].descuento;
             this.debito.items[index].subtotal = res.data[0].subtotal;
             this.debito.items[index].total = res.data[0].total;
-            this.boletaItemsSumTotal();
+            this.debitoItemsSumTotal();
           } else if (res.data[0].lista == 'ceroNinguno') {
             this.debito.items[index].productos = null;
-            this.debito.items[index].cantidad = null;
-            this.debito.items[index].precio_con_igv = null;
-            this.debito.items[index].subtotal = null;
-            this.debito.items[index].total = null;
+            if (this.debito.items[index].cantidad == null){
+              this.debito.items[index].cantidad = null;
+              this.debito.items[index].precio_con_igv = null;
+              this.debito.items[index].subtotal = null;
+              this.debito.items[index].total = null;
+            }
           } else {
             this.debito.items[index].productos = res.data;
-            this.debito.items[index].cantidad = null;
-            this.debito.items[index].precio_con_igv = null;
-            this.debito.items[index].subtotal = null;
-            this.debito.items[index].total = null;
+            if (this.debito.items[index].cantidad == null){
+              this.debito.items[index].cantidad = null;
+              this.debito.items[index].precio_con_igv = null;
+              this.debito.items[index].subtotal = null;
+              this.debito.items[index].total = null;
+            }
+
           }
         });
 
@@ -296,7 +301,7 @@
             this.boleta.items[index].precio_con_igv = null;
             this.boleta.items[index].subtotal = null;
             this.boleta.items[index].total = null;
-            console.log(this.boleta.items[index].productos)
+            // console.log(this.boleta.items[index].productos)
           }
         });
 
@@ -329,6 +334,34 @@
           // console.log(res.data)
         })
       },
+      debitoSave: function () {
+        console.log(this.debito)
+        // $('#boletaModal').modal('hide')
+
+        axios.post('./_documentos.php?f=debito_save', {debito: this.debito}).then(res => {
+          // console.log(res.data)
+          if (res.data == 'ok') {
+            Swal.fire({
+              title: 'Factura Guardada!',
+              text: 'correctamente!!!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            }).then((result) => {
+              $('#debitoModal').modal('hide')
+              this.facturaList();
+            });
+          } else {
+            Swal.fire({
+              title: 'Error No se Guardo!',
+              text: 'Corregir!!!',
+              icon: 'error',
+              confirmButtonText: 'Continuar'
+            }).then((result) => {
+              $('#debitoModal').modal('hide')
+            });
+          }
+        })
+      },
       boletaSave: function () {
         console.log(this.boleta)
         // $('#boletaModal').modal('hide')
@@ -356,7 +389,6 @@
             });
           }
         })
-
       },
       facturaSave: function () {
         // console.log(this.factura)
@@ -384,6 +416,27 @@
             });
           }
         })
+
+      },
+      debitoItemsSumTotal: function () {
+
+        // Sumatorias
+        let tempSumGravadas = 0.00;
+        let tempSumIgv = 0.00;
+        let tempSumTotal = 0.00;
+
+        this.debito.items.forEach(item => {
+          // console.log(typeof tempSumGravadas + typeof item.subtotal);
+          tempSumGravadas = parseFloat(tempSumGravadas) + parseFloat(item.subtotal);
+          tempSumIgv = parseFloat(tempSumIgv) + parseFloat(item.igv);
+          tempSumTotal = parseFloat(tempSumTotal) + parseFloat(item.total);
+          tempSumGravadas = tempSumGravadas.toFixed(2);
+          tempSumIgv = tempSumIgv.toFixed(2);
+          tempSumTotal = tempSumTotal.toFixed(2);
+        });
+        this.debito.total_gravadas = tempSumGravadas;
+        this.debito.total_igv = tempSumIgv;
+        this.debito.total_total = tempSumTotal;
 
       },
       boletaItemsSumTotal: function () {
@@ -463,6 +516,18 @@
         });
 
       },
+      debitoItemCantidadChange: function (i, item) {
+        // console.log(typeof i + ' = ' + i)
+        if (this.debito.items[i].precio_con_igv != ''){
+          if (this.debito.items[i].cantidad != 0) {
+            // los calculos se hacen en base a los precios unitarios con igv y sin igv
+            this.debito.items[i].subtotal = (this.debito.items[i].cantidad * this.debito.items[i].precio_sin_igv).toFixed(2);
+            this.debito.items[i].total = (this.debito.items[i].cantidad * this.debito.items[i].precio_con_igv).toFixed(2);
+            this.debito.items[i].igv = (this.debito.items[i].total - this.debito.items[i].subtotal).toFixed(2);
+            this.debitoItemsSumTotal();
+          }
+        }
+      },
       boletaItemCantidadChange: function (i, item) {
         // console.log(typeof i + ' = ' + i)
         if (this.boleta.items[i].cantidad != 0) {
@@ -483,6 +548,18 @@
           this.facturaItemsSumTotal();
         }
       },
+      debitoItemPrecioChange: function (i, item) {
+        // console.log(item.precio_con_igv)
+        if (this.debito.items[i].cantidad == null){
+          this.debito.items[i].cantidad = 1;
+        }
+        this.debito.items[i].precio_sin_igv = this.debito.items[i].precio_con_igv - this.debito.items[i].precio_con_igv * 0.18;
+        this.debito.items[i].subtotal = (this.debito.items[i].cantidad * this.debito.items[i].precio_sin_igv).toFixed(2);
+        this.debito.items[i].total = (this.debito.items[i].cantidad * this.debito.items[i].precio_con_igv).toFixed(2);
+        this.debito.items[i].igv = (this.debito.items[i].total - this.debito.items[i].subtotal).toFixed(2);
+        this.debitoItemsSumTotal();
+        // console.log(item)
+      },
       boletaItemPrecioChange: function (i, item) {
         this.boleta.items[i].precio_sin_igv = this.boleta.items[i].precio_con_igv - this.boleta.items[i].precio_con_igv * 0.18;
         this.boleta.items[i].subtotal = (this.boleta.items[i].cantidad * this.boleta.items[i].precio_sin_igv).toFixed(2);
@@ -498,6 +575,40 @@
         this.factura.items[i].igv = (this.factura.items[i].total - this.factura.items[i].subtotal).toFixed(2);
         this.facturaItemsSumTotal();
         // console.log(item)
+      },
+      debitoOpenModal: function (action) {
+        if (action == 'nuevo') {
+          this.debito.id = '';
+          this.debito.numero = '';
+          this.debito.tipo = 'factura';
+          this.debito.ruc = '';
+          this.debito.razon = '';
+          this.debito.direccion = '';
+          this.debito.serie = this.factura_default;
+          this.debito.fecha_emision = '<?php echo date('Y-m-d') ?>';
+          this.debito.venta_interna = '1';
+          this.debito.total_gravadas = null;
+          this.debito.total_igv = null;
+          this.debito.total_total = null;
+          this.debito.items = [{
+            id: '',
+            productos: [],
+            nombre: '',
+            producto_id: null,
+            unidad: '',
+            cantidad: null,
+            precio_con_igv: null,
+            precio_sin_igv: null,
+            igv: null,
+            tipo_igv: '1',
+            descuento: null,
+            subtotal: null,
+            total: null
+          }];
+        } else if (action == 'editar') {
+
+        }
+        $('#debitoModal').modal('show')
       },
       boletaOpenModal: function (action, boleta) {
         if (action == 'nuevo') {
@@ -594,7 +705,7 @@
           nombre: '',
           producto_id: null,
           unidad: '',
-          cantidad: 0,
+          cantidad: null,
           precio_con_igv: 0,
           precio_sin_igv: 0,
           tipo_igv: '0',
@@ -643,14 +754,6 @@
 
         }
         $('#creditoModal').modal('show')
-      },
-      debitoOpenModal: function (action) {
-        if (action == 'nuevo') {
-          this.debito.id = '';
-        } else if (action == 'editar') {
-
-        }
-        $('#debitoModal').modal('show')
       }
     },
     created() {
