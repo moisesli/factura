@@ -1,6 +1,6 @@
 <?php
 
-$conn = new mysqli('localhost', 'root', 'moiseslinar3s', 'factura');
+$conn = new mysqli('localhost', 'root', '', 'factura');
 
 // if ($_SERVER['HTTP_HOST'] == 'monases2.com'){alhost', 'root', 'moiseslinar3s', 'monases');
 //// }else {
