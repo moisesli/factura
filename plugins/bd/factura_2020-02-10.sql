@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-02-2020 a las 15:43:50
+-- Servidor: localhost
+-- Tiempo de generación: 23-02-2020 a las 17:41:50
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.1
+-- Versión de PHP: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -69,8 +69,8 @@ CREATE TABLE `config_docs_tipos` (
 --
 
 INSERT INTO `config_docs_tipos` (`id`, `config_const_doc_id`, `serie`, `empresa_id`, `numero`, `defecto`) VALUES
-(1, 1, 'F001', 13, '3', 1),
-(2, 4, 'B001', 13, '0', 1),
+(1, 1, 'F001', 13, '10', 1),
+(2, 4, 'B001', 13, '1', 1),
 (3, 1, 'F002', 13, '0', 0),
 (4, 1, 'F003', 13, '0', 0),
 (5, 4, 'B002', 13, '0', 0),
@@ -80,7 +80,13 @@ INSERT INTO `config_docs_tipos` (`id`, `config_const_doc_id`, `serie`, `empresa_
 (9, 2, 'FN03', 13, '0', 0),
 (10, 5, 'BN01', 13, '0', 1),
 (11, 5, 'BN02', 13, '0', 0),
-(12, 5, 'BN03', 13, '0', 0);
+(12, 5, 'BN03', 13, '0', 0),
+(13, 3, 'FD01', 13, '1', 1),
+(14, 3, 'FD02', 13, '0', 0),
+(15, 3, 'FD03', 13, '0', 0),
+(16, 6, 'BD01', 13, '0', 1),
+(17, 6, 'BD02', 13, '0', 0),
+(18, 6, 'BD03', 13, '0', 0);
 
 -- --------------------------------------------------------
 
@@ -115,7 +121,9 @@ INSERT INTO `docs` (`id`, `ruc`, `razon`, `direccion`, `serie`, `fecha_emision`,
 (27, '10425162531', 'Surmotriz SRL', 'Leguia 284', 'F001', '2020-02-07', 'factura', '', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16'),
 (28, '10425162531', 'surmotriz', 'legia', 'F002', '2020-02-09', 'factura', '2', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16'),
 (29, '425162531', 'surmotriz', 'legia', 'F001', '2020-02-09', 'factura', '2', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16'),
-(30, '10425162531', 'surmo', 'legia', 'F001', '2020-02-09', 'factura', '3', NULL, 1, NULL, NULL, '1', '475.90', '104.47', '580.37');
+(30, '10425162531', 'surmo', 'legia', 'F001', '2020-02-09', 'factura', '3', NULL, 1, NULL, NULL, '1', '475.90', '104.47', '580.37'),
+(31, '10425162531', 'Surmotriz S.R.L.', 'Av. Leguia 580', 'B001', '2020-02-16', 'boleta', '1', NULL, 1, NULL, NULL, '1', '1406.62', '308.77', '1715.39'),
+(32, '10425162531', 'surmo', 'legia', 'FD01', '2020-02-23', 'debito', '1', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16');
 
 -- --------------------------------------------------------
 
@@ -150,7 +158,10 @@ INSERT INTO `docs_items` (`id`, `nombre`, `producto_id`, `cantidad`, `precio_con
 (22, 'Jewell Carroll', 46, 1, '642.16', '526.57', '115.59', '1', '0.00', '526.57', '642.16', NULL, 0),
 (23, 'Jewell Carroll', 46, 1, '642.16', '526.57', '115.59', '1', '0.00', '526.57', '642.16', NULL, 28),
 (24, 'Jewell Carroll', 46, 1, '642.16', '526.57', '115.59', '1', '0.00', '526.57', '642.16', NULL, 29),
-(25, 'Dejah Barrows', 115, 1, '580.37', '475.90', '104.47', '1', '0.00', '475.90', '580.37', NULL, 30);
+(25, 'Dejah Barrows', 115, 1, '580.37', '475.90', '104.47', '1', '0.00', '475.90', '580.37', NULL, 30),
+(26, 'Jewell Carroll', 46, 2, '642.16', '526.57', '231.18', '1', '0.00', '1053.14', '1284.32', NULL, 31),
+(27, 'Conner Carroll', 171, 1, '431.07', '353.48', '77.59', '0', '0.00', '353.48', '431.07', NULL, 31),
+(28, 'Jewell Carroll', 46, 1, '642.16', '526.57', '115.59', '0', '0.00', '526.57', '642.16', NULL, 32);
 
 -- --------------------------------------------------------
 
@@ -597,19 +608,19 @@ ALTER TABLE `config_const_docs`
 -- AUTO_INCREMENT de la tabla `config_docs_tipos`
 --
 ALTER TABLE `config_docs_tipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `docs`
 --
 ALTER TABLE `docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `docs_items`
 --
 ALTER TABLE `docs_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`
