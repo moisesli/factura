@@ -236,6 +236,38 @@
           // console.log(this.boleta_default)
         })
       },
+      debitoItemNombreChange: function (index, item, text) {
+        // console.log(text);
+        axios.post('./_documentos.php?f=searchproductos', {text: text}).then(res => {
+          // console.log(this.factura.items[index].productos)
+          if (res.data[0].lista == 'unoIgual') {
+            this.debito.items[index].productos = null;
+            this.debito.items[index].nombre = res.data[0].nombre;
+            this.debito.items[index].producto_id = res.data[0].id;
+            this.debito.items[index].cantidad = 1;
+            this.debito.items[index].precio_sin_igv = res.data[0].precio_sin_igv;
+            this.debito.items[index].precio_con_igv = res.data[0].precio_con_igv;
+            this.debito.items[index].igv = res.data[0].igv;
+            this.debito.items[index].descuento = res.data[0].descuento;
+            this.debito.items[index].subtotal = res.data[0].subtotal;
+            this.debito.items[index].total = res.data[0].total;
+            this.boletaItemsSumTotal();
+          } else if (res.data[0].lista == 'ceroNinguno') {
+            this.debito.items[index].productos = null;
+            this.debito.items[index].cantidad = null;
+            this.debito.items[index].precio_con_igv = null;
+            this.debito.items[index].subtotal = null;
+            this.debito.items[index].total = null;
+          } else {
+            this.debito.items[index].productos = res.data;
+            this.debito.items[index].cantidad = null;
+            this.debito.items[index].precio_con_igv = null;
+            this.debito.items[index].subtotal = null;
+            this.debito.items[index].total = null;
+          }
+        });
+
+      },
       boletaItemNombreChange: function (index, item, text) {
         // console.log(text);
         axios.post('./_documentos.php?f=searchproductos', {text: text}).then(res => {
@@ -555,6 +587,22 @@
           // console.log(factura)
         }
         $('#facturaModal').modal('show')
+      },
+      debitoAddLine: function () {
+        this.debito.items.push({
+          id: '',
+          nombre: '',
+          producto_id: null,
+          unidad: '',
+          cantidad: 0,
+          precio_con_igv: 0,
+          precio_sin_igv: 0,
+          tipo_igv: '0',
+          igv: 0,
+          descuento: 0,
+          subtotal: 0,
+          total: 0
+        });
       },
       boletaAddLine: function () {
         this.boleta.items.push({

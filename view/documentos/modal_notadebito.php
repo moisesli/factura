@@ -13,7 +13,7 @@
         <!-- Datos Generales -->
         <div class="d-inline-flex" style="width: 100%;">
 
-          <!-- Buscar Documento -->
+          <!-- Buscar Documento 20.5% -->
           <div class="" style="width: 20.5%; box-sizing: content-box;">
             <div class="mr-2">
               <small class="form-text text-muted">Buscar Doc</small>
@@ -27,14 +27,14 @@
           </div>
 
           <!-- RUC 20% -->
-          <div class="" style="width: 20%; box-sizing: content-box;">
+          <div class="" style="width: 16%; box-sizing: content-box;">
             <div class="bg-light">
               <small class="form-text text-muted">Dni o Ruc</small>
               <input type="text" class="form-control text-right" v-model="debito.ruc" :disabled="credito.ruc == ''">
             </div>
           </div>
 
-          <!-- Razon Social 25% -->
+          <!-- Razon Social 29% -->
           <div class="pl-2" style="width: 29%; box-sizing: content-box;">
             <div class="bg-light">
               <small class="form-text text-muted">Razon Social </small>
@@ -91,6 +91,16 @@
             </div>
           </div>
 
+          <!-- Add Item 5.5% -->
+          <div class="pl-2" style="width: 5.5%; box-sizing: content-box;">
+            <div class="bg-light">
+              <small class="form-text text-muted">Agregar </small>
+              <button class="btn btn-primary btn-block" @click="debitoAddLine">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+
         </div><!-- End Datos Generales -->
 
         <!-- Items Titulos -->
@@ -144,7 +154,10 @@
           <!-- Producto 37% -->
           <div style="width: 37%; box-sizing: border-box;">
             <div class="pr-2 bg-light">
-              <input type="search" class="form-control" v-model="item.nombre" autocomplete="off">
+              <input type="search" class="form-control" :list="'debito'+index" v-model="item.nombre" @input="debitoItemNombreChange(index,item,item.nombre)" autocomplete="off">
+              <datalist :id="'debito'+index" open="open">
+                <option v-for="(result,index) in item.productos" :value="result.nombre">
+              </datalist>
             </div>
           </div>
 
