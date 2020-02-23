@@ -38,7 +38,7 @@
           </div>
 
           <!-- Direccion -->
-          <div class="pl-2" style="width: 32%; box-sizing: content-box;">
+          <div class="pl-2" style="width: 30.5%; box-sizing: content-box;">
             <div class="bg-light">
               <small class="form-text text-muted">Direccion </small>
               <input type="text" class="form-control" v-model="boleta.direccion" placeholder="">
