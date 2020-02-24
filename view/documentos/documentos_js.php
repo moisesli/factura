@@ -104,6 +104,8 @@
         serie: '',
         fecha_emision: '',
         venta_interna: '',
+        referencia_numero: '',
+        referencia_serie: '',
         total_gravadas: '',
         total_igv: '',
         total_total: '',
@@ -134,6 +136,8 @@
           this.debito.ruc = res.data.ruc;
           this.debito.razon = res.data.razon;
           this.debito.direccion = res.data.direccion;
+          this.debito.referencia_numero = res.data.numero;
+          this.debito.referencia_serie = res.data.serie;
           // 3 : Credito Facturas
           // 6 : Credito Boletas
           if (res.data.tipo == 'factura') {
@@ -361,27 +365,27 @@
       },
       debitoSave: function () {
         axios.post('./_documentos.php?f=debito_save', {debito: this.debito}).then(res => {
-          // console.log(res.data)
-          if (res.data == 'ok') {
-            Swal.fire({
-              title: 'Factura Guardada!',
-              text: 'correctamente!!!',
-              icon: 'success',
-              confirmButtonText: 'Aceptar'
-            }).then((result) => {
-              $('#debitoModal').modal('hide')
-              this.facturaList();
-            });
-          } else {
-            Swal.fire({
-              title: 'Error No se Guardo!',
-              text: 'Corregir!!!',
-              icon: 'error',
-              confirmButtonText: 'Continuar'
-            }).then((result) => {
-              $('#debitoModal').modal('hide')
-            });
-          }
+          console.log(res.data)
+          // if (res.data == 'ok') {
+          //   Swal.fire({
+          //     title: 'Factura Guardada!',
+          //     text: 'correctamente!!!',
+          //     icon: 'success',
+          //     confirmButtonText: 'Aceptar'
+          //   }).then((result) => {
+          //     $('#debitoModal').modal('hide')
+          //     this.facturaList();
+          //   });
+          // } else {
+          //   Swal.fire({
+          //     title: 'Error No se Guardo!',
+          //     text: 'Corregir!!!',
+          //     icon: 'error',
+          //     confirmButtonText: 'Continuar'
+          //   }).then((result) => {
+          //     $('#debitoModal').modal('hide')
+          //   });
+          // }
         })
       },
       boletaSave: function () {
@@ -608,6 +612,8 @@
           this.debito.direccion = '';
           this.debito.serie = this.factura_default;
           this.debito.fecha_emision = '<?php echo date('Y-m-d') ?>';
+          this.debito.referencia_numero = null;
+          this.debito.referencia_serie = '';
           this.debito.venta_interna = '1';
           this.debito.total_gravadas = null;
           this.debito.total_igv = null;
@@ -785,7 +791,7 @@
         if (action == 'nuevo') {
           this.credito.id = '';
           this.credito.numero = '';
-          this.credito.tipo = 'factura';
+          this.credito.tipo = 'credito';
           this.credito.ruc = '';
           this.credito.razon = '';
           this.credito.direccion = '';

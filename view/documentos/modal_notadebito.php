@@ -18,14 +18,14 @@
             <div class="mr-2">
               <small class="form-text text-muted">Buscar Doc</small>
               <div class="input-group">
-                <input type="text" class="form-control text-right" @keyup.enter="debitoImportDoc(debito.numero)" v-model="debito.numero" placeholder="0000789">
+                <input type="text" class="form-control text-right" v-model="debito.referencia_numero" @keyup.enter="debitoImportDoc(debito.referencia_numero)" placeholder="0000789">
                 <div class="input-group-append">
                   <span class="input-group-text" @click="debitoImportDoc(debito.numero)"><i class="fas fa-search"></i></span>
                 </div>
               </div>
             </div>
           </div>
-  
+
           <!-- RUC 20% -->
           <div class="" style="width: 16%; box-sizing: content-box;">
             <div class="bg-light">
