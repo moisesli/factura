@@ -14,6 +14,7 @@
       include_once './modal_boletas.php';
       include_once './modal_notacredito.php';
       include_once './modal_notadebito.php';
+      include_once './modal_enviar.php';
     ?>
 
     <!-- Content Header (Page header) -->
@@ -34,13 +35,26 @@
         <!-- Botones and DatePicker -->
         <div class="row d-flex justify-content-between">
           <div class="col-sm-6">
-            <button class="btn btn-primary" @click="facturaOpenModal('nuevo')"><i class="fa fa-plus"></i> Factura</button>
-            <button class="btn btn-secondary" @click="boletaOpenModal('nuevo')"><i class="fa fa-plus"></i> Boleta</button>
-            <button class="btn btn-success" @click="creditoOpenModal('nuevo')"><i class="fa fa-plus"></i> N. Credito</button>
-            <button class="btn btn-warning" @click="debitoOpenModal('nuevo')"><i class="fa fa-plus"></i> N. Debito</button>
+            <button class="btn btn-default" @click="facturaOpenModal('nuevo')"><i class="fa fa-plus"></i> Factura</button>
+            <button class="btn btn-default" @click="boletaOpenModal('nuevo')"><i class="fa fa-plus"></i> Boleta</button>
+            <button class="btn btn-default" @click="creditoOpenModal('nuevo')"><i class="fa fa-plus"></i> N. Credito</button>
+            <button class="btn btn-default" @click="debitoOpenModal('nuevo')"><i class="fa fa-plus"></i> N. Debito</button>
           </div>
-          <div class="w-30">
-            <input type="text" class="form-control" id="reservation">
+          <div class="col-sm-6 d-inline-flex text-right">
+            <div style="width: 20%"></div>
+            <div style="width: 25%; box-sizing: content-box;">
+              <div class="mr-1">
+<!--                <button class="btn btn-default btn-block"><i class="fa fa-upload"></i> E. Boletas</button>-->
+              </div>
+            </div>
+            <div style="width: 25%; box-sizing: content-box;">
+              <div class="mr-1">
+                <button class="btn btn-default btn-block" @click="enviarDocumentos()"><i class="fa fa-upload"></i> Enviar</button>
+              </div>
+            </div>
+            <div style="width: 30%; box-sizing: content-box;">
+              <input type="text" class="form-control text-right" id="reservation">
+            </div>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -102,12 +116,13 @@
                         </button>
                         <button type="button" class="btn btn-default dropdown-toggle dropdown-toggle-split"
                                 id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" data-reference="parent">
+                                aria-expanded="false" data-reference="parent"> Opcion
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuReference">
                           <a class="dropdown-item" v-if="doc.tipo == 'factura'" @click="facturaOpenModal('editar',doc)" href="#">Editar Factura</a>
                           <a class="dropdown-item" v-if="doc.tipo == 'boleta'" @click="boletaOpenModal('editar',doc)" href="#">Editar Boleta</a>
+                          <a class="dropdown-item" v-if="doc.tipo == 'credito'" @click="creditoOpenModal('editar',doc)" href="#">Editar Nota Credito</a>
                           <a class="dropdown-item" v-if="doc.tipo == 'debito'" @click="debitoOpenModal('editar',doc)" href="#">Editar Debito</a>
                           <a class="dropdown-item" href="#">Enviar Sunat</a>
                           <a class="dropdown-item" href="#">Something else here</a>

@@ -125,6 +125,9 @@
       }
     },
     methods: {
+      enviarDocumentos: function(){
+        $('#enviarModal').modal('show');
+      },
       debitoImportDoc: function(numero){
         axios.post('./_documentos.php?f=debito_import_doc', { numero: numero }).then(res => {
           this.debito.id = '';
@@ -148,7 +151,29 @@
         })
       },
       creditoSave: function(){
-
+        axios.post('./_documentos.php?f=credito_save', {credito: this.credito}).then(res => {
+          // console.log(res.data)
+          if (res.data == 'ok') {
+            Swal.fire({
+              title: 'Factura Guardada!',
+              text: 'correctamente!!!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            }).then((result) => {
+              $('#creditoModal').modal('hide')
+              this.facturaList();
+            });
+          } else {
+            Swal.fire({
+              title: 'Error No se Guardo!',
+              text: 'Corregir!!!',
+              icon: 'error',
+              confirmButtonText: 'Continuar'
+            }).then((result) => {
+              $('#creditoModal').modal('hide')
+            });
+          }
+        })
       },
       creditoImportDoc: function (numero) {
         axios.post('./_documentos.php?f=credito_import_doc', {numero: numero}).then(res => {
@@ -335,9 +360,6 @@
         })
       },
       debitoSave: function () {
-        console.log(this.debito)
-        // $('#boletaModal').modal('hide')
-
         axios.post('./_documentos.php?f=debito_save', {debito: this.debito}).then(res => {
           // console.log(res.data)
           if (res.data == 'ok') {
@@ -576,7 +598,7 @@
         this.facturaItemsSumTotal();
         // console.log(item)
       },
-      debitoOpenModal: function (action) {
+      debitoOpenModal: function (action,debito) {
         if (action == 'nuevo') {
           this.debito.id = '';
           this.debito.numero = '';
@@ -606,7 +628,18 @@
             total: null
           }];
         } else if (action == 'editar') {
-
+          this.debito.id = debito.id;
+          this.debito.tipo = debito.tipo;
+          this.debito.ruc = debito.ruc;
+          this.debito.razon = debito.razon;
+          this.debito.direccion = debito.direccion;
+          this.debito.serie = debito.serie;
+          this.debito.fecha_emision = debito.fecha_emision;
+          this.debito.venta_interna = debito.venta_interna;
+          this.debito.total_gravadas = debito.total_gravadas;
+          this.debito.total_igv = debito.total_igv;
+          this.debito.total_total = debito.total_total;
+          this.debito.items = debito.items;
         }
         $('#debitoModal').modal('show')
       },
@@ -637,7 +670,8 @@
             subtotal: null,
             total: null
           }];
-        } else if (action == 'editar') {
+        }
+        else if (action == 'editar') {
           this.boleta.id = boleta.id;
           this.boleta.tipo = boleta.tipo;
           this.boleta.ruc = boleta.ruc;
@@ -747,11 +781,48 @@
           total: 0
         });
       },
-      creditoOpenModal: function (action) {
+      creditoOpenModal: function (action, credito) {
         if (action == 'nuevo') {
           this.credito.id = '';
+          this.credito.numero = '';
+          this.credito.tipo = 'factura';
+          this.credito.ruc = '';
+          this.credito.razon = '';
+          this.credito.direccion = '';
+          this.credito.serie = this.factura_default;
+          this.credito.fecha_emision = '<?php echo date('Y-m-d') ?>';
+          this.credito.venta_interna = '1';
+          this.credito.total_gravadas = null;
+          this.credito.total_igv = null;
+          this.credito.total_total = null;
+          this.credito.items = [{
+            id: '',
+            productos: [],
+            nombre: '',
+            producto_id: null,
+            unidad: '',
+            cantidad: null,
+            precio_con_igv: null,
+            precio_sin_igv: null,
+            igv: null,
+            tipo_igv: '1',
+            descuento: null,
+            subtotal: null,
+            total: null
+          }];
         } else if (action == 'editar') {
-
+          this.credito.id = credito.id;
+          this.credito.tipo = credito.tipo;
+          this.credito.ruc = credito.ruc;
+          this.credito.razon = credito.razon;
+          this.credito.direccion = credito.direccion;
+          this.credito.serie = credito.serie;
+          this.credito.fecha_emision = credito.fecha_emision;
+          this.credito.venta_interna = credito.venta_interna;
+          this.credito.total_gravadas = credito.total_gravadas;
+          this.credito.total_igv = credito.total_igv;
+          this.credito.total_total = credito.total_total;
+          this.credito.items = credito.items;
         }
         $('#creditoModal').modal('show')
       }

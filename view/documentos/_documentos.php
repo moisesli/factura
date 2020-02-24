@@ -13,6 +13,8 @@ if ($f == 'searchproductos') {
   echo $documento->facturaSaveNew();
 }elseif($f == 'boleta_save'){
   echo $documento->boletaSave();
+}elseif($f == 'credito_save'){
+  echo $documento->creditoSave();
 }elseif($f == 'debito_save'){
   echo $documento->debitoSave();
 }elseif ($f == 'factura_list'){
@@ -443,7 +445,113 @@ class documentos
                                   subtotal = {$item['subtotal']},
                                   tipo_igv = {$item['tipo_igv']},
                                   total = {$item['total']},
-                                  doc_id = {$post['boleta']['id']}
+                                  doc_id = {$post['debito']['id']}
+                            ";
+        }
+        $conn->query($facturaSqlSaveItems);
+      }
+
+    }
+
+    return 'ok';
+  }
+
+  public function creditoSave()
+  {
+    global $conn, $post;
+
+    session_start();
+
+    // Si es nuevo
+    if ($post['credito']['id'] == ""){
+
+      $sql_current_numero = "select (numero+1) numero from config_docs_tipos where empresa_id={$_SESSION['empresa_id']} and serie='{$post['credito']['serie']}'";
+      $sql_current_numero = $conn->query($sql_current_numero)->fetch_array(MYSQLI_ASSOC);
+      $sql_current_numero = $sql_current_numero['numero'];
+
+      // Handles Headers
+      $facturaSqlSaveNew = "insert into docs set
+                            ruc = '{$post['credito']['ruc']}',
+                            numero = {$sql_current_numero},
+                            tipo = '{$post['credito']['tipo']}',
+                            razon = '{$post['credito']['razon']}',
+                            direccion = '{$post['credito']['direccion']}',
+                            serie = '{$post['credito']['serie']}',
+                            fecha_emision = '". date("Y-m-d", strtotime($post['credito']['fecha_emision'])) ."',
+                            venta_interna = '{$post['credito']['venta_interna']}',
+                            total_gravadas = {$post['credito']['total_gravadas']},
+                            total_igv = {$post['credito']['total_igv']},
+                            total_total = {$post['credito']['total_total']}
+                            ";
+      $conn->query($facturaSqlSaveNew);
+      $doc_id = $conn->insert_id;
+
+      // Update Factura Numero
+      $sqp_update_numero = "update config_docs_tipos set numero = {$sql_current_numero} where empresa_id={$_SESSION['empresa_id']} and serie='{$post['credito']['serie']}'";
+      $conn->query($sqp_update_numero);
+
+      // Heandles Items
+      foreach ($post['credito']['items'] as $item){
+        $facturaSqlSaveItems = "insert into docs_items set
+                                nombre = '{$item['nombre']}',
+                                producto_id = '{$item['producto_id']}',
+                                cantidad = {$item['cantidad']},
+                                precio_sin_igv = {$item['precio_sin_igv']},
+                                precio_con_igv = {$item['precio_con_igv']},
+                                igv = {$item['igv']},
+                                descuento = {$item['descuento']},
+                                subtotal = {$item['subtotal']},
+                                tipo_igv = {$item['tipo_igv']},
+                                total = {$item['total']},
+                                doc_id = $doc_id
+                            ";
+        $conn->query($facturaSqlSaveItems);
+      }
+
+
+    }
+    else{ // Si es editar
+      $sql_factura_update = "update docs set
+                             ruc = '{$post['credito']['ruc']}',
+                             tipo = '{$post['credito']['tipo']}',
+                             razon = '{$post['credito']['razon']}',
+                             direccion = '{$post['credito']['direccion']}',
+                             serie = '{$post['credito']['serie']}',
+                             fecha_emision = '". date("Y-m-d", strtotime($post['credito']['fecha_emision'])) ."',
+                             venta_interna = '{$post['credito']['venta_interna']}',
+                             total_gravadas = {$post['credito']['total_gravadas']},
+                             total_igv = {$post['credito']['total_igv']},
+                             total_total = {$post['credito']['total_total']}
+                             where id = {$post['credito']['id']}";
+      $conn->query($sql_factura_update);
+
+      foreach ($post['credito']['items'] as $item){
+        if ($item['id'] != ''){
+          $facturaSqlSaveItems = "update docs_items set
+                                  nombre = '{$item['nombre']}',
+                                  producto_id = '{$item['producto_id']}',
+                                  cantidad = {$item['cantidad']},
+                                  precio_sin_igv = {$item['precio_sin_igv']},
+                                  precio_con_igv = {$item['precio_con_igv']},
+                                  igv = {$item['igv']},
+                                  descuento = {$item['descuento']},
+                                  subtotal = {$item['subtotal']},
+                                  tipo_igv = {$item['tipo_igv']},
+                                  total = {$item['total']}
+                                  where id = {$item['id']}";
+        }else {
+          $facturaSqlSaveItems = "insert into docs_items set
+                                  nombre = '{$item['nombre']}',
+                                  producto_id = '{$item['producto_id']}',
+                                  cantidad = {$item['cantidad']},
+                                  precio_sin_igv = {$item['precio_sin_igv']},
+                                  precio_con_igv = {$item['precio_con_igv']},
+                                  igv = {$item['igv']},
+                                  descuento = {$item['descuento']},
+                                  subtotal = {$item['subtotal']},
+                                  tipo_igv = {$item['tipo_igv']},
+                                  total = {$item['total']},
+                                  doc_id = {$post['credito']['id']}
                             ";
         }
         $conn->query($facturaSqlSaveItems);
