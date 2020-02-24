@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 23-02-2020 a las 17:41:50
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 24-02-2020 a las 17:01:19
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.2
+-- Versión de PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -75,7 +75,7 @@ INSERT INTO `config_docs_tipos` (`id`, `config_const_doc_id`, `serie`, `empresa_
 (4, 1, 'F003', 13, '0', 0),
 (5, 4, 'B002', 13, '0', 0),
 (6, 4, 'B003', 13, '0', 0),
-(7, 2, 'FN01', 13, '0', 1),
+(7, 2, 'FN01', 13, '1', 1),
 (8, 2, 'FN02', 13, '0', 0),
 (9, 2, 'FN03', 13, '0', 0),
 (10, 5, 'BN01', 13, '0', 1),
@@ -103,27 +103,30 @@ CREATE TABLE `docs` (
   `fecha_emision` date DEFAULT NULL,
   `tipo` varchar(10) DEFAULT '',
   `numero` varchar(12) DEFAULT '',
-  `total` decimal(12,2) DEFAULT NULL,
+  `total` decimal(12,2) NOT NULL,
   `estado` int(1) DEFAULT 1,
   `sunat` varchar(8) DEFAULT NULL,
   `cliente_id` varchar(20) DEFAULT NULL,
   `venta_interna` varchar(4) DEFAULT NULL,
   `total_gravadas` decimal(10,2) DEFAULT NULL,
   `total_igv` decimal(10,2) DEFAULT NULL,
-  `total_total` decimal(10,2) DEFAULT NULL
+  `total_total` decimal(10,2) DEFAULT NULL,
+  `referencia_numero` varchar(12) DEFAULT NULL,
+  `referencia_serie` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `docs`
 --
 
-INSERT INTO `docs` (`id`, `ruc`, `razon`, `direccion`, `serie`, `fecha_emision`, `tipo`, `numero`, `total`, `estado`, `sunat`, `cliente_id`, `venta_interna`, `total_gravadas`, `total_igv`, `total_total`) VALUES
-(27, '10425162531', 'Surmotriz SRL', 'Leguia 284', 'F001', '2020-02-07', 'factura', '', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16'),
-(28, '10425162531', 'surmotriz', 'legia', 'F002', '2020-02-09', 'factura', '2', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16'),
-(29, '425162531', 'surmotriz', 'legia', 'F001', '2020-02-09', 'factura', '2', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16'),
-(30, '10425162531', 'surmo', 'legia', 'F001', '2020-02-09', 'factura', '3', NULL, 1, NULL, NULL, '1', '475.90', '104.47', '580.37'),
-(31, '10425162531', 'Surmotriz S.R.L.', 'Av. Leguia 580', 'B001', '2020-02-16', 'boleta', '1', NULL, 1, NULL, NULL, '1', '1406.62', '308.77', '1715.39'),
-(32, '10425162531', 'surmo', 'legia', 'FD01', '2020-02-23', 'debito', '1', NULL, 1, NULL, NULL, '1', '526.57', '115.59', '642.16');
+INSERT INTO `docs` (`id`, `ruc`, `razon`, `direccion`, `serie`, `fecha_emision`, `tipo`, `numero`, `total`, `estado`, `sunat`, `cliente_id`, `venta_interna`, `total_gravadas`, `total_igv`, `total_total`, `referencia_numero`, `referencia_serie`) VALUES
+(27, '10425162531', 'Surmotriz SRL', 'Leguia 284', 'F001', '2020-02-07', 'factura', '', '0.00', 1, NULL, NULL, '1', '526.57', '115.59', '642.16', NULL, NULL),
+(28, '10425162531', 'surmotriz', 'legia', 'F002', '2020-02-09', 'factura', '2', '0.00', 1, NULL, NULL, '1', '526.57', '115.59', '642.16', NULL, NULL),
+(29, '425162531', 'surmotriz', 'legia', 'F001', '2020-02-09', 'factura', '2', '0.00', 1, NULL, NULL, '1', '526.57', '115.59', '642.16', NULL, NULL),
+(30, '10425162531', 'surmo', 'legia', 'F001', '2020-02-09', 'factura', '3', '0.00', 1, NULL, NULL, '1', '475.90', '104.47', '580.37', NULL, NULL),
+(31, '10425162531', 'Surmotriz S.R.L.', 'Av. Leguia 580', 'B001', '2020-02-16', 'boleta', '1', '0.00', 1, NULL, NULL, '1', '1406.62', '308.77', '1715.39', NULL, NULL),
+(32, '10425162531', 'surmo', 'legia', 'FD01', '2020-02-23', 'debito', '1', '0.00', 1, NULL, NULL, '1', '1529.04', '335.65', '1864.69', NULL, NULL),
+(33, '10425162532', 'Surmotriz SRL', 'Leguia 284', 'FN01', '2020-02-24', 'credito', '1', '0.00', 1, NULL, NULL, '1', '526.57', '115.59', '642.16', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -161,7 +164,9 @@ INSERT INTO `docs_items` (`id`, `nombre`, `producto_id`, `cantidad`, `precio_con
 (25, 'Dejah Barrows', 115, 1, '580.37', '475.90', '104.47', '1', '0.00', '475.90', '580.37', NULL, 30),
 (26, 'Jewell Carroll', 46, 2, '642.16', '526.57', '231.18', '1', '0.00', '1053.14', '1284.32', NULL, 31),
 (27, 'Conner Carroll', 171, 1, '431.07', '353.48', '77.59', '0', '0.00', '353.48', '431.07', NULL, 31),
-(28, 'Jewell Carroll', 46, 1, '642.16', '526.57', '115.59', '0', '0.00', '526.57', '642.16', NULL, 32);
+(28, 'Jewell Carroll', 46, 2, '642.16', '526.57', '231.18', '0', '0.00', '1053.14', '1284.32', NULL, 32),
+(29, 'Dejah Barrows', 115, 1, '580.37', '475.90', '104.47', '0', '0.00', '475.90', '580.37', NULL, 32),
+(30, 'Jewell Carroll', 46, 1, '642.16', '526.57', '115.59', '1', '0.00', '526.57', '642.16', NULL, 33);
 
 -- --------------------------------------------------------
 
@@ -614,13 +619,13 @@ ALTER TABLE `config_docs_tipos`
 -- AUTO_INCREMENT de la tabla `docs`
 --
 ALTER TABLE `docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `docs_items`
 --
 ALTER TABLE `docs_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`

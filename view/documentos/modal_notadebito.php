@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-
+  
           <!-- RUC 20% -->
           <div class="" style="width: 16%; box-sizing: content-box;">
             <div class="bg-light">
