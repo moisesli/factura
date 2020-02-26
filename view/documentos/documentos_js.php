@@ -129,7 +129,8 @@
       }
     },
     methods: {
-      enviarDocumentos: function(){
+      enviarDocumentos: function(documento){
+
         $('#enviarModal').modal('show');
       },
       debitoImportDoc: function(numero){
