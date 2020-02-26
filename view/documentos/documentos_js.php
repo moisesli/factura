@@ -76,6 +76,8 @@
         serie: '',
         fecha_emision: '',
         venta_interna: '',
+        referencia_numero: '',
+        referencia_serie: '',
         total_gravadas: '',
         total_igv: '',
         total_total: '',
@@ -185,6 +187,8 @@
           this.credito.ruc = res.data.ruc;
           this.credito.razon = res.data.razon;
           this.credito.direccion = res.data.direccion;
+          this.credito.referencia_numero = res.data.numero;
+          this.credito.referencia_serie = res.data.serie;
           // 2 : Credito Facturas
           // 5 : Credito Boletas
           if (res.data.tipo == 'factura') {
@@ -365,27 +369,26 @@
       },
       debitoSave: function () {
         axios.post('./_documentos.php?f=debito_save', {debito: this.debito}).then(res => {
-          console.log(res.data)
-          // if (res.data == 'ok') {
-          //   Swal.fire({
-          //     title: 'Factura Guardada!',
-          //     text: 'correctamente!!!',
-          //     icon: 'success',
-          //     confirmButtonText: 'Aceptar'
-          //   }).then((result) => {
-          //     $('#debitoModal').modal('hide')
-          //     this.facturaList();
-          //   });
-          // } else {
-          //   Swal.fire({
-          //     title: 'Error No se Guardo!',
-          //     text: 'Corregir!!!',
-          //     icon: 'error',
-          //     confirmButtonText: 'Continuar'
-          //   }).then((result) => {
-          //     $('#debitoModal').modal('hide')
-          //   });
-          // }
+          if (res.data == 'ok') {
+            Swal.fire({
+              title: 'Factura Guardada!',
+              text: 'correctamente!!!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            }).then((result) => {
+              $('#debitoModal').modal('hide')
+              this.facturaList();
+            });
+          } else {
+            Swal.fire({
+              title: 'Error No se Guardo!',
+              text: 'Corregir!!!',
+              icon: 'error',
+              confirmButtonText: 'Continuar'
+            }).then((result) => {
+              $('#debitoModal').modal('hide')
+            });
+          }
         })
       },
       boletaSave: function () {
@@ -606,7 +609,7 @@
         if (action == 'nuevo') {
           this.debito.id = '';
           this.debito.numero = '';
-          this.debito.tipo = 'factura';
+          this.debito.tipo = 'debito';
           this.debito.ruc = '';
           this.debito.razon = '';
           this.debito.direccion = '';

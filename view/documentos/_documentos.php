@@ -456,7 +456,6 @@ class documentos
       }
 
     }
-
     return 'ok';
   }
 
@@ -482,6 +481,8 @@ class documentos
                             direccion = '{$post['credito']['direccion']}',
                             serie = '{$post['credito']['serie']}',
                             fecha_emision = '". date("Y-m-d", strtotime($post['credito']['fecha_emision'])) ."',
+                            referencia_numero = '{$post['credito']['referencia_numero']}',
+                            referencia_serie = '{$post['credito']['referencia_serie']}',
                             venta_interna = '{$post['credito']['venta_interna']}',
                             total_gravadas = {$post['credito']['total_gravadas']},
                             total_igv = {$post['credito']['total_igv']},
@@ -522,6 +523,8 @@ class documentos
                              direccion = '{$post['credito']['direccion']}',
                              serie = '{$post['credito']['serie']}',
                              fecha_emision = '". date("Y-m-d", strtotime($post['credito']['fecha_emision'])) ."',
+                             referencia_numero = '{$post['credito']['referencia_numero']}',
+                             referencia_serie = '{$post['credito']['referencia_serie']}',
                              venta_interna = '{$post['credito']['venta_interna']}',
                              total_gravadas = {$post['credito']['total_gravadas']},
                              total_igv = {$post['credito']['total_igv']},
