@@ -3,7 +3,14 @@
     el: '#app',
     data: {
       nombre: 'moises',
-      enviando: 'no',
+      enviar: {
+        enviando: '',
+        tipo: '',
+        serie: '',
+        numero: '',
+        fecha_emision: ''
+      },
+      enviando: 'ok',
       docs: [],
       productosList: [],
       factura_series: [],
@@ -130,14 +137,17 @@
       }
     },
     methods: {
-      enviarDocumento: function(documento){
-        console.log(documento.tipo)
+      enviarDocumento: function(i){
+        this.enviar.enviando = 'ok';
+        this.enviar.tipo = this.docs[i].tipo;
+        this.enviar.serie = this.docs[i].serie;
+        this.enviar.numero = this.docs[i].numero;
+        this.enviar.fecha_emision = this.docs[i].fecha_emision;
         $('#enviarModal').modal('show');
-        axios.post('./_enviar.php?f='+documento.tipo).then(res => {
+        axios.post('./_enviar.php?f='+this.enviar.tipo).then(res => {
           if (res.data == 'ok'){
-            $('#enviarModal').modal('hide');
-            this.enviando = 'ok';
-            console.log(res.data)
+            // $('#enviarModal').modal('hide');
+            this.enviar.enviando = 'si';
           }else{
 
           }

@@ -4,10 +4,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <!-- Titulo -->
-        <h5 class="modal-title"><i class="fa fa-file"></i> Enviar Documentos</h5>
+        <h5 class="modal-title"><i class="fa fa-file"></i> Enviando Sunat Fecha : {{enviar.fecha_emision}}</h5>
       </div>
       <div class="modal-body">
-        <i class="fa fa-upload"></i> Enviando Documentos...
+        <div class="text-center pb-3">
+          <i class="fas fa-spinner fa-spin fa-3x" v-if="enviar.enviando=='ok'"></i>
+          <i class="fas fa-check fa-3x" v-if="enviar.enviando=='si'"></i>
+        </div>
+        <div class="text-center">
+          {{enviar.serie}} - {{enviar.numero}} <br>
+          <span v-if="enviar.enviando=='ok'">Enviando {{enviar.tipo}}...</span>
+          <span v-if="enviar.enviando=='si'">{{enviar.tipo}} Enviado Correctamente</span>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

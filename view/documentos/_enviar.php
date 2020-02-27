@@ -29,6 +29,7 @@ class Enviar {
   }
 
   public function enviarCredito(){
+    sleep(3);
     return 'ok';
   }
 
