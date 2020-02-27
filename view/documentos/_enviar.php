@@ -7,14 +7,14 @@ $f = $_GET['f'];
 
 $enviar = new Enviar;
 
-if ($f == 'enviar_factura') {
+if ($f == 'factura') {
   echo $enviar->enviarFactura();
-}elseif ($f == 'enviar_boleta'){
-  echo $enviar->enviarFactura();
-}elseif ($f == 'enviar_credito'){
-  echo $enviar->enviarFactura();
-}elseif ($f == 'enviar_debito'){
-  echo $enviar->enviarFactura();
+}elseif ($f == 'boleta'){
+  echo $enviar->enviarBoleta();
+}elseif ($f == 'credito'){
+  echo $enviar->enviarCredito();
+}elseif ($f == 'debito'){
+  echo $enviar->enviarDebito();
 }
 
 
@@ -29,10 +29,10 @@ class Enviar {
   }
 
   public function enviarCredito(){
-    return 'enviar Credito';
+    return 'ok';
   }
 
   public function enviarDebito(){
-    return 'enviar debito';
+    return 'ok';
   }
 }

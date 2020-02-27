@@ -124,7 +124,7 @@
                           <a class="dropdown-item" v-if="doc.tipo == 'boleta'" @click="boletaOpenModal('editar',doc)" href="#">Editar Boleta</a>
                           <a class="dropdown-item" v-if="doc.tipo == 'credito'" @click="creditoOpenModal('editar',doc)" href="#">Editar Nota Credito</a>
                           <a class="dropdown-item" v-if="doc.tipo == 'debito'" @click="debitoOpenModal('editar',doc)" href="#">Editar Debito</a>
-                          <a class="dropdown-item" href="#">Enviar Sunat</a>
+                          <a class="dropdown-item" @click="enviarDocumento(doc)" href="#">Enviar Sunat</a>
                           <a class="dropdown-item" href="#">Something else here</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Separated link</a>

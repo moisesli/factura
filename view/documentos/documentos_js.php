@@ -3,6 +3,7 @@
     el: '#app',
     data: {
       nombre: 'moises',
+      enviando: 'no',
       docs: [],
       productosList: [],
       factura_series: [],
@@ -129,9 +130,20 @@
       }
     },
     methods: {
-      enviarDocumentos: function(documento){
-
+      enviarDocumento: function(documento){
+        console.log(documento.tipo)
         $('#enviarModal').modal('show');
+        axios.post('./_enviar.php?f='+documento.tipo).then(res => {
+          if (res.data == 'ok'){
+            $('#enviarModal').modal('hide');
+            this.enviando = 'ok';
+            console.log(res.data)
+          }else{
+
+          }
+
+        })
+
       },
       debitoImportDoc: function(numero){
         axios.post('./_documentos.php?f=debito_import_doc', { numero: numero }).then(res => {
