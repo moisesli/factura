@@ -1,6 +1,7 @@
 {
     "require": {
-        "fzaninotto/faker": "^1.9"
+        "fzaninotto/faker": "^1.9",
+        "greenter/greenter": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8"

@@ -1,5 +1,6 @@
 <?php
 
+include "../../vendor/autoload.php";
 include_once "../../plugins/bd/conn.php";
 $post = json_decode(file_get_contents("php://input"), true);
 
@@ -21,11 +22,13 @@ if ($f == 'factura') {
 
 class Enviar {
   public function enviarFactura(){
-    return 'enviar factura';
+    sleep(4);
+    return 'ok';
   }
 
   public function enviarBoleta(){
-    return 'enviar Boleta';
+    sleep(4);
+    return 'ok';
   }
 
   public function enviarCredito(){
