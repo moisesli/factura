@@ -96,6 +96,7 @@
                     <th>Numero</th>
                     <th>Documento</th>
                     <th>Nombre</th>
+                    <th>Enviado</th>
                     <th>Total</th>
                     <th>Acciones</th>
                   </tr>
@@ -108,6 +109,11 @@
                     <td>{{doc.numero}}</td>
                     <td>{{doc.ruc}}</td>
                     <td>{{doc.razon}}</td>
+                    <td>
+                      <!-- Sunat -->
+                      <span v-if="doc.sunat=='0'">Si</span>
+                      <span v-else>No</span>
+                    </td>
                     <td>{{doc.total_total}}</td>
                     <td>
                       <div class="btn-group btn-group-sm">

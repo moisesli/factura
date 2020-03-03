@@ -12,9 +12,9 @@
           <i class="fas fa-check fa-3x" v-if="enviar.enviando=='si'"></i>
         </div>
         <div class="text-center">
-          {{enviar.serie}} - {{enviar.numero}} <br>
-          <span v-if="enviar.enviando=='ok'">Enviando {{enviar.tipo}}...</span>
-          <span v-if="enviar.enviando=='si'">{{enviar.tipo}} Enviado Correctamente</span>
+          {{enviar.descripcion}}<br>
+          <span v-if="enviar.enviando=='ok'">Enviando...</span>
+          <span v-if="enviar.enviando=='si'">Enviado Correctamente!!.</span>
         </div>
       </div>
       <div class="modal-footer">

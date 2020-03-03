@@ -73,14 +73,20 @@ $invoice->setDetails([$item])
 
 $result = $see->send($invoice);
 
-// Guardar XML
-file_put_contents($invoice->getName().'.xml',
-  $see->getFactory()->getLastXml());
-if (!$result->isSuccess()) {
-  var_dump($result->getError());
-  exit();
-}
+echo json_encode([
+  'id' => $result->getCdrResponse()->getId(),
+  'code' => $result->getCdrResponse()->getCode(),
+  'descripcion' => $result->getCdrResponse()->getDescription()
+]);
 
-echo $result->getCdrResponse()->getDescription();
+print_r($result);
+// Guardar XML
+//file_put_contents($invoice->getName().'.xml',$see->getFactory()->getLastXml());
+//if (!$result->isSuccess()) {
+//  var_dump($result->getError());
+//  exit();
+//}
+
+//echo $result->getCdrResponse()->getDescription();
 // Guardar CDR
-file_put_contents('R-'.$invoice->getName().'.zip', $result->getCdrZip());
+//file_put_contents('R-'.$invoice->getName().'.zip', $result->getCdrZip());

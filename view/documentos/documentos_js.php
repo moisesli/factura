@@ -5,6 +5,7 @@
       nombre: 'moises',
       enviar: {
         enviando: '',
+        descripcion: '',
         tipo: '',
         serie: '',
         numero: '',
@@ -140,13 +141,13 @@
       enviarDocumento: function(i){
         this.enviar.enviando = 'ok';
         this.enviar.tipo = this.docs[i].tipo;
-        this.enviar.serie = this.docs[i].serie;
-        this.enviar.numero = this.docs[i].numero;
+        this.enviar.descripcion = this.docs[i].serie + '-' + this.docs[i].numero;
         this.enviar.fecha_emision = this.docs[i].fecha_emision;
         $('#enviarModal').modal('show');
-        axios.post('./_enviar.php?f='+this.enviar.tipo).then(res => {
-          if (res.data == 'ok'){
-            // $('#enviarModal').modal('hide');
+        axios.post('./_enviar.php?f='+this.enviar.tipo, { id: this.docs[i].id }).then(res => {
+          this.enviar.descripcion = res.data.descripcion;
+          if (res.data.code == '0'){
+            this.facturaList();
             this.enviar.enviando = 'si';
           }else{
 
@@ -415,7 +416,7 @@
         })
       },
       boletaSave: function () {
-        console.log(this.boleta)
+        // console.log(this.boleta)
         // $('#boletaModal').modal('hide')
 
         axios.post('./_documentos.php?f=boleta_save', {boleta: this.boleta}).then(res => {
