@@ -13,9 +13,7 @@ $see = require __DIR__.'/config.php';
 
 // Cliente
 $client = new Client();
-$client->setTipoDoc('6')
-  ->setNumDoc('20000000001')
-  ->setRznSocial('EMPRESA 1');
+$client->setTipoDoc('6')->setNumDoc('20000000001')->setRznSocial('EMPRESA 1');
 
 // Emisor
 $address = new Address();
@@ -71,15 +69,16 @@ $legend = (new Legend())
 $invoice->setDetails([$item])
   ->setLegends([$legend]);
 
+
 $result = $see->send($invoice);
+print_r($see->getFactory()->getLastXml());
+//echo json_encode([
+//  'id' => $result->getCdrResponse()->getId(),
+//  'code' => $result->getCdrResponse()->getCode(),
+//  'descripcion' => $result->getCdrResponse()->getDescription()
+//]);
 
-echo json_encode([
-  'id' => $result->getCdrResponse()->getId(),
-  'code' => $result->getCdrResponse()->getCode(),
-  'descripcion' => $result->getCdrResponse()->getDescription()
-]);
-
-print_r($result);
+//print_r($result);
 // Guardar XML
 //file_put_contents($invoice->getName().'.xml',$see->getFactory()->getLastXml());
 //if (!$result->isSuccess()) {
